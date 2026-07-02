@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title">🌐 部署设置</h2>
+
+<div class="card">
+    <h3>⚙️ 部署模式</h3>
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 20px;">
+        选择网站通过哪种方式对外访问，可多选。关闭所有模式后仅限本机访问。
+    </p>
+
+    <form method="POST" action="/deploy">
+        <div class="deploy-options">
+            <label class="deploy-option {% if config.local %}active{% endif %}">
+                <div class="option-left">
+                    <div class="check-box {% if config.local %}checked{% endif %}">
+                        {% if config.local %}<span class="check-mark">✓</span>{% endif %}
+                    </div>
+                </div>
+                <div class="option-right">
+                    <div class="option-icon-wrap">💻</div>
+                    <div class="option-info">
+                        <strong>本地访问</strong>
+                        <span class="option-desc">通过局域网 IP 访问，速度快、无延迟</span>
+                        {% if config.local %}
+                        <span class="option-badge badge-local">已开启</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <input type="checkbox" name="local" value="1" {% if config.local %}checked{% endif %}>
+            </label>
+
+            <label class="deploy-option {% if config.public %}active{% endif %}">
+                <div class="option-left">
+                    <div class="check-box {% if config.public %}checked{% endif %}">
+                        {% if config.public %}<span class="check-mark">✓</span>{% endif %}
+                    </div>
+                </div>
+                <div class="option-right">
+                    <div class="option-icon-wrap">🌍</div>
+                    <div class="option-info">
+                        <strong>公网访问</strong>
+                        <span class="option-desc">通过域名或公网 IP 访问，随时随地</span>
+                        {% if config.public %}
+                        <span class="option-badge badge-public">已开启</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <input type="checkbox" name="public" value="1" {% if config.public %}checked{% endif %}>
+            </label>
+        </div>
+
+        <div class="deploy-summary">
+            <span class="summary-label">当前模式：</span>
+            <span class="mode-tag {% if config.local %}tag-local{% else %}tag-disabled{% endif %}">💻 本地</span>
+            <span class="mode-plus">+</span>
+            <span class="mode-tag {% if config.public %}tag-public{% else %}tag-disabled{% endif %}">🌍 公网</span>
+        </div>
+
+        <div class="btn-group" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">💾 保存设置</button>
+        </div>
+    </form>
+</div>
+
+<div class="card" style="background: #fffbeb; border: 1px solid #fde68a;">
+    <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <span style="font-size: 1.5rem;">💡</span>
+        <div>
+            <h4 style="font-size: 0.95rem; color: #92400e; margin-bottom: 4px;">提示</h4>
+            <p style="font-size: 0.85rem; color: #a16207; line-height: 1.6;">
+                本地和公网可以同时开启，互不影响。修改后刷新网站页面即可生效。
+            </p>
+        </div>
+    </div>
+</div>
+
+<style>
+.deploy-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.deploy-option {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 20px;
+    border-radius: 10px;
+    border: 2px solid #e2e8f0;
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.deploy-option:hover {
+    border-color: #93c5fd;
+    background: #f8faff;
+}
+
+.deploy-option.active {
+    border-color: #3b82f6;
+    background: #eef2ff;
+}
+
+.deploy-option input[type="checkbox"] {
+    display: none;
+}
+
+.option-left {
+    flex-shrink: 0;
+}
+
+.check-box {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    border: 2px solid #cbd5e1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+    transition: all 0.2s;
+}
+
+.check-box.checked {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.check-mark {
+    animation: popIn 0.2s ease;
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+.option-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+}
+
+.option-icon-wrap {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.deploy-option.active .option-icon-wrap {
+    background: #eef2ff;
+}
+
+.option-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.option-info strong {
+    font-size: 1rem;
+}
+
+.option-desc {
+    font-size: 0.85rem;
+    color: #94a3b8;
+}
+
+.option-badge {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.badge-local {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.badge-public {
+    background: #dcfce7;
+    color: #166534;
+}
+
+/* 汇总 */
+.deploy-summary {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.summary-label {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+.mode-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.tag-local {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.tag-public {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.tag-disabled {
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.mode-plus {
+    color: #94a3b8;
+    font-weight: 600;
+}
+</style>
+{% endblock %}
