@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">🖼️ 相册管理</h1>
+
+<div class="card">
+    <h3>创建相册</h3>
+    <form method="POST" action="/admin/gallery/add">
+        <div class="form-row">
+            <div class="form-group">
+                <label>相册名称 *</label>
+                <input type="text" name="title" placeholder="例如：生活日常" required>
+            </div>
+            <div class="form-group">
+                <label>描述</label>
+                <input type="text" name="description" placeholder="相册简介">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">创建相册</button>
+    </form>
+</div>
+
+{% for album in albums %}
+<div class="card">
+    <h3>
+        {{ album.title }}
+        <span style="font-size: 0.8rem; color: #94a3b8; font-weight: 400;">{{ album.images|length }} 张</span>
+    </h3>
+    {% if album.description %}
+    <p style="color: #64748b; font-size: 0.9rem; margin-bottom: 12px;">{{ album.description }}</p>
+    {% endif %}
+
+    <!-- 编辑表单 -->
+    <form method="POST" action="/admin/gallery/edit/{{ album.id }}" style="display: flex; gap: 8px; margin-bottom: 12px; align-items: end;">
+        <div class="form-group" style="margin-bottom: 0; flex: 1;">
+            <label>名称</label>
+            <input type="text" name="title" value="{{ album.title }}" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; width: 200px;">
+        </div>
+        <div class="form-group" style="margin-bottom: 0; flex: 2;">
+            <label>描述</label>
+            <input type="text" name="description" value="{{ album.description or '' }}" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; width: 100%;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">更新</button>
+        <form method="POST" action="/admin/gallery/delete/{{ album.id }}" class="inline-form" onsubmit="return confirm('确定删除相册「{{ album.title }}」？')">
+            <button type="submit" class="btn btn-sm btn-danger">删除</button>
+        </form>
+    </form>
+
+    <!-- 上传图片 -->
+    <form method="POST" action="/admin/gallery/upload_image/{{ album.id }}" enctype="multipart/form-data" style="display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: end;">
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>图片</label>
+            <input type="file" name="image" accept="image/*" required style="font-size: 0.85rem;">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>标题</label>
+            <input type="text" name="title" placeholder="图片标题" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem;">
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+            <label>说明</label>
+            <input type="text" name="caption" placeholder="图片说明" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem;">
+        </div>
+        <button type="submit" class="btn btn-primary btn-sm">上传</button>
+    </form>
+
+    <!-- 图片列表 -->
+    {% if album.images %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px;">
+        {% for img in album.images %}
+        <div style="position: relative; border-radius: 8px; overflow: hidden; border: 1px solid #e2e8f0;">
+            <img src="{{ img.url }}" alt="{{ img.title or '' }}" style="width: 100%; height: 100px; object-fit: cover; display: block;">
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.6)); padding: 4px 6px;">
+                <span style="color: white; font-size: 0.7rem;">{{ img.title or '' }}</span>
+            </div>
+            <form method="POST" action="/admin/gallery/delete_image/{{ album.id }}/{{ loop.index0 }}" style="position: absolute; top: 4px; right: 4px;" onsubmit="return confirm('确定删除这张图片？')">
+                <button type="submit" style="background: rgba(0,0,0,0.5); border: none; color: white; width: 22px; height: 22px; border-radius: 50%; cursor: pointer; font-size: 0.8rem; display: flex; align-items: center; justify-content: center;">✕</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p style="color: #94a3b8; font-size: 0.85rem;">暂无图片</p>
+    {% endif %}
+</div>
+{% endfor %}
+
+{% if not albums %}
+<div class="card">
+    <div class="empty-state">
+        <div class="icon">📸</div>
+        <p>还没有相册，创建一个吧</p>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
