@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小熙 · 内容管理</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            min-height: 100vh;
+        }
+        .layout { display: flex; min-height: 100vh; }
+        .sidebar {
+            width: 220px;
+            background: #1e293b;
+            color: #fff;
+            padding: 24px 0;
+            flex-shrink: 0;
+        }
+        .sidebar h2 {
+            padding: 0 20px 20px;
+            font-size: 1.2rem;
+            border-bottom: 1px solid #334155;
+            margin-bottom: 8px;
+        }
+        .sidebar h2 small {
+            display: block;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+        .sidebar a {
+            display: block;
+            padding: 12px 20px;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+        .sidebar a:hover, .sidebar a.active {
+            background: #334155;
+            color: #fff;
+        }
+        .sidebar a.active { border-left: 3px solid #3b82f6; }
+        .main {
+            flex: 1;
+            padding: 32px 40px;
+            max-width: 960px;
+        }
+        .page-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .flash {
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 0.9rem;
+        }
+        .flash.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+        .flash.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 4px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary { background: #3b82f6; color: #fff; }
+        .btn-primary:hover { background: #2563eb; }
+        .btn-danger { background: #ef4444; color: #fff; }
+        .btn-danger:hover { background: #dc2626; }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+        }
+        .btn-outline:hover { background: #f8fafc; }
+        .btn-group { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+        .item-list { list-style: none; }
+        .item-list li {
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .item-list li:last-child { border-bottom: none; }
+        .item-info { flex: 1; }
+        .item-title { font-weight: 600; margin-bottom: 4px; }
+        .item-meta { font-size: 0.8rem; color: #94a3b8; margin-bottom: 4px; }
+        .item-desc { font-size: 0.85rem; color: #64748b; }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            background: #e0e7ff;
+            color: #4338ca;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin: 2px;
+        }
+        .inline-form { display: inline; }
+        .help-text { font-size: 0.8rem; color: #94a3b8; margin-top: 4px; }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #94a3b8;
+        }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 8px; }
+        @media (max-width: 768px) {
+            .layout { flex-direction: column; }
+            .sidebar { width: 100%; padding: 12px 0; }
+            .sidebar a { display: inline-block; padding: 8px 16px; }
+            .sidebar h2 { padding: 0 16px 12px; }
+            .main { padding: 20px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <div class="sidebar">
+        <h2>🦞 小熙 CMS <small>内容管理系统</small></h2>
+        <a href="/dashboard" class="{% if request.path == '/dashboard' %}active{% endif %}">📊 概览</a>
+        <a href="/profile" class="{% if '/profile' in request.path %}active{% endif %}">👤 个人信息</a>
+        <a href="/admin/blogs" class="{% if '/admin/blogs' in request.path %}active{% endif %}">📖 博客管理</a>
+        <a href="/admin/projects" class="{% if '/admin/projects' in request.path %}active{% endif %}">📦 项目管理</a>
+        <a href="/admin/status" class="{% if '/admin/status' in request.path %}active{% endif %}">⏰ 状态管理</a>
+        <a href="/admin/messages" class="{% if '/admin/messages' in request.path %}active{% endif %}">💬 留言管理</a>
+        <a href="/admin/links" class="{% if '/admin/links' in request.path %}active{% endif %}">🌐 友链管理</a>
+        <a href="/admin/gallery" class="{% if '/admin/gallery' in request.path %}active{% endif %}">🖼️ 相册管理</a>
+        <a href="/updates" class="{% if '/updates' in request.path %}active{% endif %}">📝 动态更新</a>
+        <a href="/achievements" class="{% if '/achievements' in request.path %}active{% endif %}">🏆 成就管理</a>
+        <a href="/files" class="{% if '/files' in request.path %}active{% endif %}">📁 文件分享</a>
+        <a href="/deploy" class="{% if '/deploy' in request.path %}active{% endif %}">🌐 部署设置</a>
+    </div>
+    <div class="main">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+</div>
+</body>
+</html>
