@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="page-title">🌐 友链管理</h1>
+
+<div class="card">
+    <h3>添加友链</h3>
+    <form method="POST" action="/admin/links/add">
+        <div class="form-row">
+            <div class="form-group">
+                <label>名称 *</label>
+                <input type="text" name="name" placeholder="站点名称" required>
+            </div>
+            <div class="form-group">
+                <label>链接 *</label>
+                <input type="url" name="url" placeholder="https://example.com" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>简介</label>
+                <input type="text" name="description" placeholder="一句话简介">
+            </div>
+            <div class="form-group">
+                <label>图标（Emoji）</label>
+                <input type="text" name="icon" placeholder="🌐 （选填）" maxlength="10">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">添加友链</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>全部友链（{{ links|length }}）</h3>
+    {% if links %}
+    <ul class="item-list">
+        {% for link in links %}
+        <li>
+            <div class="item-info">
+                <div class="item-title">{{ link.icon or '🔗' }} {{ link.name }}</div>
+                <div class="item-meta">
+                    <a href="{{ link.url }}" target="_blank" rel="noopener" style="color: #3b82f6;">{{ link.url }}</a>
+                </div>
+                {% if link.description %}
+                <div class="item-desc">{{ link.description }}</div>
+                {% endif %}
+                <!-- 编辑表单 -->
+                <form method="POST" action="/admin/links/edit/{{ link.id }}" style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                    <input type="text" name="name" value="{{ link.name }}" placeholder="名称" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; width: 150px;">
+                    <input type="url" name="url" value="{{ link.url }}" placeholder="链接" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; width: 200px;">
+                    <input type="text" name="icon" value="{{ link.icon or '' }}" placeholder="图标" style="padding: 6px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.85rem; width: 60px;">
+                    <button type="submit" class="btn btn-primary btn-sm">更新</button>
+                </form>
+            </div>
+            <form method="POST" action="/admin/links/delete/{{ link.id }}" class="inline-form" onsubmit="return confirm('确定删除「{{ link.name }}」？')">
+                <button type="submit" class="btn btn-sm btn-danger">删除</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state">
+        <div class="icon">🤝</div>
+        <p>还没有友链，添加一个吧</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
