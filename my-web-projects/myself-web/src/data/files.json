@@ -1,0 +1,50 @@
+[
+  {
+    "description": "从零搭建 Ubuntu 22.04 开发环境的详细步骤",
+    "id": 1,
+    "name": "Ubuntu 开发环境配置指南",
+    "size": "868 B",
+    "type": "pdf",
+    "url": "ubuntu-setup-guide.txt"
+  },
+  {
+    "description": "Vue 3 Composition API 学习笔记，涵盖 ref、computed、生命周期等核心概念",
+    "id": 2,
+    "name": "Vue 3 快速入门笔记",
+    "size": "635 B",
+    "type": "md",
+    "url": "vue3-quickstart.md"
+  },
+  {
+    "description": "收录的 Go 语言实用小工具，含 HTTP 服务器源码",
+    "id": 3,
+    "name": "Go 语言小工具集",
+    "size": "315 B",
+    "type": "md",
+    "url": "go-tools-readme.md"
+  },
+  {
+    "description": "开源电影 Sintel 的预告片，MP4 格式，可直接在线播放",
+    "id": 4,
+    "name": "Sintel 电影预告片",
+    "size": "4.2 MB",
+    "type": "video",
+    "url": "test-video.mp4"
+  },
+  {
+    "description": "参赛",
+    "id": 5,
+    "name": "彩色",
+    "size": "70.8 KB",
+    "type": "image",
+    "url": "test-photo.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Python 编程小技巧",
+    "type": "md",
+    "size": "277 B",
+    "description": "日常 Python 编程中实用的代码片段",
+    "url": "python-tips.md"
+  }
+]
