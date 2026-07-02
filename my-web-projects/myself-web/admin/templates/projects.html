@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="page-title">📦 项目管理</h2>
+
+<div class="card">
+    <h3>添加新项目</h3>
+    <form method="POST" action="/admin/projects/add">
+        <div class="form-group">
+            <label>项目名称</label>
+            <input type="text" name="title" placeholder="项目名称" required>
+        </div>
+        <div class="form-group">
+            <label>描述</label>
+            <textarea name="description" rows="3" placeholder="项目描述"></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>技术栈（逗号分隔）</label>
+                <input type="text" name="tech" placeholder="Vue 3, Python, Go">
+            </div>
+            <div class="form-group">
+                <label>状态</label>
+                <select name="status">
+                    <option value="进行中">🔄 进行中</option>
+                    <option value="已完成">✅ 已完成</option>
+                    <option value="计划中">📋 计划中</option>
+                    <option value="暂停">⏸️ 暂停</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>项目链接</label>
+                <input type="text" name="link" placeholder="https://...">
+            </div>
+            <div class="form-group">
+                <label>GitHub 链接</label>
+                <input type="text" name="github" placeholder="https://github.com/...">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>图片 URL（可选）</label>
+            <input type="text" name="image" placeholder="项目截图或 Logo 的 URL">
+        </div>
+        <button type="submit" class="btn btn-primary">📦 添加项目</button>
+    </form>
+</div>
+
+<div class="card">
+    <h3>所有项目（{{ projects|length }} 个）</h3>
+    {% if projects %}
+    <ul class="item-list">
+        {% for item in projects %}
+        <li>
+            <div class="item-info">
+                <div class="item-title">{{ item.title }}</div>
+                <div class="item-meta">
+                    {% if item.status %}
+                    <span class="tag" style="background:#dbeafe;color:#1d4ed8;">{{ item.status }}</span>
+                    {% endif %}
+                    {% if item.link %}<a href="{{ item.link }}" target="_blank" style="color:#3b82f6;">🔗 链接</a>{% endif %}
+                    {% if item.github %}<a href="{{ item.github }}" target="_blank" style="color:#333;">🐙 GitHub</a>{% endif %}
+                </div>
+                <div class="item-desc">{{ item.description }}</div>
+                {% if item.tech %}
+                <div style="margin-top:6px;">
+                    {% for t in item.tech %}<span class="tag">{{ t }}</span>{% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div style="flex-shrink:0; display:flex; gap:4px;">
+                <a href="/admin/projects/edit/{{ item.id }}" class="btn btn-outline btn-sm">✏️</a>
+                <form class="inline-form" method="POST" action="/admin/projects/delete/{{ item.id }}" onsubmit="return confirm('确定删除项目「{{ item.title }}」？')">
+                    <button type="submit" class="btn btn-danger btn-sm">🗑️</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="empty-state"><div class="icon">📦</div><p>还没有项目，添加第一个吧！</p></div>
+    {% endif %}
+</div>
+{% endblock %}
