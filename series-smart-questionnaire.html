@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智能问卷系列 - 小熙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        nav ul li a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        nav ul li a:hover {
+            transform: translateY(-3px);
+        }
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .page-header {
+            margin-bottom: 30px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #667eea;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        .page-title {
+            font-size: 2em;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        .page-desc {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        /* ===== 项目卡片 ===== */
+        .project-list {
+            display: grid;
+            gap: 25px;
+            grid-template-columns: 1fr;
+        }
+        .project-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            border-left: 4px solid #10b981;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .project-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .project-number {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #10b981;
+            opacity: 0.6;
+        }
+        .project-status {
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-weight: 500;
+        }
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+        .project-card h3 {
+            color: #10b981;
+            margin-bottom: 12px;
+            font-size: 1.3em;
+        }
+        .project-card p {
+            color: #666;
+            line-height: 1.7;
+        }
+        .tags {
+            margin: 12px 0;
+        }
+        .tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #10b981;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
+        /* ===== 功能列表 ===== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .feature-item {
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+        .feature-item span {
+            margin-right: 6px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .tech-tag {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-radius: 20px;
+            font-size: 0.85em;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 项目展示</h1>
+            <p>我的实践与创新项目</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="index-static.html">🏠 首页</a></li>
+                <li><a href="about.html">📝 简介</a></li>
+                <li><a href="projects.html">🚀 项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 个人想法</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <div class="page-header">
+                <a href="projects.html" class="back-link">← 返回项目列表</a>
+                <h1 class="page-title">📋 智能问卷系列</h1>
+                <p class="page-desc">AI驱动的智能问卷系统系列，涵盖问卷创建、AI审核、数据分析等功能。</p>
+            </div>
+
+            <div class="project-list">
+                <!-- #1 智能问卷系统 v2.0.0 -->
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-number">#1</div>
+                        <div class="project-status status-completed">✅ 已完成</div>
+                    </div>
+                    <h3>📋 智能问卷系统 v2.0.0</h3>
+                    <div class="tags">
+                        <span class="tag">React</span>
+                        <span class="tag">Vite</span>
+                        <span class="tag">Node.js</span>
+                        <span class="tag">Express</span>
+                        <span class="tag">智谱AI</span>
+                    </div>
+                    <p>AI驱动的智能问卷审核平台，防止乱填乱答。支持AI智能审核、多题型、用户系统、反作弊、AI自动出题等完整功能。</p>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-item"><span>🤖</span> AI智能审核（相关性/认真度/充实度）</div>
+                        <div class="feature-item"><span>📝</span> 多题型（简答/单选/多选/评分）</div>
+                        <div class="feature-item"><span>🔐</span> 用户系统（注册登录/JWT认证）</div>
+                        <div class="feature-item"><span>🛡️</span> 反作弊（填写时长/IP限制）</div>
+                        <div class="feature-item"><span>🤖</span> AI自动出题</div>
+                        <div class="feature-item"><span>📊</span> CSV导出</div>
+                    </div>
+
+                    <div class="tech-stack">
+                        <span class="tech-tag">前端: React 18 + Vite</span>
+                        <span class="tech-tag">后端: Node.js + Express</span>
+                        <span class="tech-tag">AI: 智谱AI GLM-4-Flash</span>
+                        <span class="tech-tag">存储: JSON文件</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+        </footer>
+    </div>
+</body>
+</html>

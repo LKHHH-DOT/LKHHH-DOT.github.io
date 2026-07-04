@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人经历 - 小熙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        nav ul li a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        nav ul li a:hover {
+            transform: translateY(-3px);
+        }
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 12px 25px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.3s;
+        }
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .tab:hover {
+            transform: translateY(-2px);
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        .section h2 {
+            color: #667eea;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        /* ===== 比赛卡片 ===== */
+        .competition-card {
+            background: #f8f9fa;
+            border-radius: 14px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .competition-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .competition-card h3 {
+            color: #667eea;
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+        .competition-card .level {
+            display: inline-block;
+            padding: 5px 14px;
+            background: #667eea;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .competition-card .meta {
+            color: #888;
+            font-size: 0.95em;
+            margin-bottom: 12px;
+        }
+        .competition-card .desc {
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 18px;
+        }
+        .competition-card .desc ul {
+            list-style: none;
+            padding: 0;
+        }
+        .competition-card .desc ul li {
+            padding: 4px 0 4px 20px;
+            position: relative;
+        }
+        .competition-card .desc ul li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+        }
+
+        /* ===== 图片画廊 ===== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .gallery img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .gallery img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        }
+
+        /* ===== PDF 链接 ===== */
+        .pdf-links {
+            margin-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pdf-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+        }
+        .pdf-link:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* ===== Lightbox ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        .lightbox.active {
+            display: flex;
+        }
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .lightbox .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2.5em;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .lightbox .close:hover {
+            transform: scale(1.2);
+        }
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 3em;
+            cursor: pointer;
+            padding: 20px;
+            user-select: none;
+            transition: opacity 0.2s;
+            opacity: 0.7;
+        }
+        .lightbox .nav-btn:hover {
+            opacity: 1;
+        }
+        .lightbox .prev {
+            left: 20px;
+        }
+        .lightbox .next {
+            right: 20px;
+        }
+
+        /* ===== 动态时间线 ===== */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 30px;
+            border-left: 2px solid #667eea;
+            padding-bottom: 20px;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #667eea;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .timeline-item h3 {
+            color: #333;
+            font-size: 1.3em;
+            margin-bottom: 8px;
+        }
+        .timeline-item .date {
+            color: #667eea;
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+        }
+        .timeline-item p {
+            color: #666;
+            line-height: 1.7;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .empty-state h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .tabs {
+                flex-direction: column;
+            }
+            .gallery {
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            }
+            .gallery img {
+                height: 130px;
+            }
+            .competition-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏆 个人经历</h1>
+            <p>成长轨迹与荣誉时刻</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="index-static.html">🏠 首页</a></li>
+                <li><a href="about.html">📝 简介</a></li>
+                <li><a href="projects.html">🚀 项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 个人想法</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <div class="tabs">
+                <button class="tab active" onclick="showSection('awards')">🏅 比赛经历</button>
+                <button class="tab" onclick="showSection('updates')">📢 动态更新</button>
+            </div>
+            
+            <!-- ===== 比赛经历 ===== -->
+            <div id="awards" class="section active">
+                <h2>🏅 比赛经历</h2>
+
+                <!-- 达索设计师大赛 -->
+                <div class="competition-card">
+                    <h3>25届达索设计师大赛</h3>
+                    <span class="level">🏆 参赛经历</span>
+                    <div class="meta">📅 2025 年 · 达索系统</div>
+                    <div class="desc">
+                        <p>达索设计师大赛是由达索系统（Dassault Systèmes）主办的全国性设计竞赛，旨在推动三维设计与智能制造技术的创新应用。本次参赛过程中，我深入学习了 CATIA 等达索系列软件的三维建模与仿真技术，完成了从概念设计到详细设计的完整流程。</p>
+                        <br>
+                        <p><strong>主要收获：</strong></p>
+                        <ul>
+                            <li>掌握达索系列工业设计软件的高级应用</li>
+                            <li>完成完整的产品设计与仿真流程</li>
+                            <li>提升三维建模与工程制图能力</li>
+                        </ul>
+                    </div>
+                    <div class="gallery">
+                        <img src="photo/competitions/dasuo/达索1.jpeg" alt="达索设计师大赛作品1" onclick="openLightbox(this)">
+                        <img src="photo/competitions/dasuo/达索2.jpeg" alt="达索设计师大赛作品2" onclick="openLightbox(this)">
+                        <img src="photo/competitions/dasuo/达索3.jpeg" alt="达索设计师大赛作品3" onclick="openLightbox(this)">
+                    </div>
+                </div>
+
+                <!-- 省工科3D赛道 -->
+                <div class="competition-card">
+                    <h3>25届广东省工科大学生实验综合技能竞赛 · 3D赛道</h3>
+                    <span class="level">🏆 校内选拔入围</span>
+                    <div class="meta">📅 2025 年 · 广东省</div>
+                    <div class="desc">
+                        <p>广东省工科大学生实验综合技能竞赛是面向全省工科专业学生的重要赛事，3D赛道重点考察学生的三维建模、工程制图与创新设计能力。本次我成功通过了校内选拔，获得了代表学校参赛的资格。</p>
+                        <br>
+                        <p><strong>主要收获：</strong></p>
+                        <ul>
+                            <li>成功通过校内选拔，入围省赛</li>
+                            <li>强化三维建模与工程制图技能</li>
+                            <li>积累竞赛经验，提升临场应变能力</li>
+                        </ul>
+                    </div>
+                    <div class="pdf-links">
+                        <a href="photo/competitions/gongke3d/2025年广东省工科大学生实验综合技能竞赛校内选拔入围名单.pdf" class="pdf-link" target="_blank">📄 查看入围名单</a>
+                        <a href="photo/competitions/gongke3d/参赛证明.pdf" class="pdf-link" target="_blank">📄 查看参赛证明</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== 动态更新 ===== -->
+            <div id="updates" class="section">
+                <h2>📢 最新动态</h2>
+                <div class="timeline-item">
+                    <h3>🎉 个人网站全新上线</h3>
+                    <div class="date">📅 2026 年 7 月</div>
+                    <p>我的个人网站正式上线！基于 GitHub Pages 构建，展示我的项目、比赛经历与创新想法。这是我在互联网上的第一个个人空间，后续会持续更新内容。</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>📋 参加达索设计师大赛</h3>
+                    <div class="date">📅 2025 年</div>
+                    <p>参加了第25届达索设计师大赛，学习了 CATIA 等达索系列软件的三维建模与仿真技术，完成了从概念设计到详细设计的完整流程。</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>🏅 省工科3D赛道校内选拔入围</h3>
+                    <div class="date">📅 2025 年</div>
+                    <p>成功通过广东省工科大学生实验综合技能竞赛3D赛道的校内选拔，获得代表学校参赛的资格。</p>
+                </div>
+            </div>
+            
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+        </footer>
+    </div>
+
+    <!-- ===== Lightbox ===== -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev" onclick="prevImage(event)">‹</span>
+        <img id="lightbox-img" src="" alt="">
+        <span class="nav-btn next" onclick="nextImage(event)">›</span>
+    </div>
+
+    <script>
+        // ===== 标签切换 =====
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // ===== Lightbox 图片预览 =====
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function openLightbox(img) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            
+            // 收集当前比赛卡片的全部图片
+            const gallery = img.closest('.competition-card').querySelector('.gallery');
+            const images = gallery.querySelectorAll('img');
+            currentImages = Array.from(images).map(i => i.src);
+            currentIndex = currentImages.indexOf(img.src);
+            
+            lightboxImg.src = img.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function prevImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+            document.getElementById('lightbox-img').src = currentImages[currentIndex];
+        }
+
+        function nextImage(e) {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % currentImages.length;
+            document.getElementById('lightbox-img').src = currentImages[currentIndex];
+        }
+
+        // 键盘导航
+        document.addEventListener('keydown', function(e) {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') prevImage(e);
+            if (e.key === 'ArrowRight') nextImage(e);
+        });
+    </script>
+</body>
+</html>
