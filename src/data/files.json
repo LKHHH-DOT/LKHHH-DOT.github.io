@@ -1,0 +1,74 @@
+[
+  {
+    "description": "从零搭建 Ubuntu 22.04 开发环境的详细步骤",
+    "id": 1,
+    "name": "Ubuntu 开发环境配置指南",
+    "size": "868 B",
+    "type": "pdf",
+    "url": "ubuntu-setup-guide.txt"
+  },
+  {
+    "description": "Vue 3 Composition API 学习笔记，涵盖 ref、computed、生命周期等核心概念",
+    "id": 2,
+    "name": "Vue 3 快速入门笔记",
+    "size": "635 B",
+    "type": "md",
+    "url": "vue3-quickstart.md"
+  },
+  {
+    "description": "收录的 Go 语言实用小工具，含 HTTP 服务器源码",
+    "id": 3,
+    "name": "Go 语言小工具集",
+    "size": "315 B",
+    "type": "md",
+    "url": "go-tools-readme.md"
+  },
+  {
+    "description": "开源电影 Sintel 的预告片，MP4 格式，可直接在线播放",
+    "id": 4,
+    "name": "Sintel 电影预告片",
+    "size": "4.2 MB",
+    "type": "video",
+    "url": "test-video.mp4"
+  },
+  {
+    "description": "参赛",
+    "id": 5,
+    "name": "彩色",
+    "size": "70.8 KB",
+    "type": "image",
+    "url": "test-photo.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Python 编程小技巧",
+    "type": "md",
+    "size": "277 B",
+    "description": "日常 Python 编程中实用的代码片段",
+    "url": "python-tips.md"
+  },
+  {
+    "id": 7,
+    "name": "智能问卷系统 v2.0.0 源码",
+    "type": "other",
+    "size": "26 KB",
+    "description": "AI驱动的智能问卷审核平台源码，含前端 React + 后端 Node.js。解压后先 npm install 安装依赖。",
+    "url": "smart-questionnaire-v2.0.0.tar.gz"
+  },
+  {
+    "id": 8,
+    "name": "智能双系统PID控制器 源码与论文",
+    "type": "other",
+    "size": "1.8 MB",
+    "description": "智能PID控制器项目的完整源码、论文文档及仿真图表。",
+    "url": "pid-controller-v1.0.0.tar.gz"
+  },
+  {
+    "id": 9,
+    "name": "VNC 远程桌面配置教程",
+    "type": "md",
+    "size": "7.9 KB",
+    "description": "从零开始用 x11vnc + Tailscale 搭建手机远程控制 Ubuntu 桌面的保姆级教程，已实际验证成功。",
+    "url": "vnc-linux-setup.md"
+  }
+]

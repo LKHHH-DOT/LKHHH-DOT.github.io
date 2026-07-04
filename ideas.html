@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人想法 - 小熙</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            color: white;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        nav ul li a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        nav ul li a:hover {
+            transform: translateY(-3px);
+        }
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .section h2 {
+            color: #667eea;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+        .intro-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .intro-box h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        .intro-box p {
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* === 分类标签栏 === */
+        .tag-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0 30px;
+        }
+        .tag-btn {
+            padding: 8px 18px;
+            border: 2px solid #667eea;
+            border-radius: 25px;
+            background: transparent;
+            color: #667eea;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+        .tag-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        .tag-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        /* === 想法卡片 === */
+        .idea-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+        .idea-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .idea-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .idea-card h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.25em;
+            line-height: 1.4;
+        }
+        .idea-card .meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 12px;
+            font-size: 0.85em;
+            color: #888;
+        }
+        .idea-card .meta span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .idea-card .category-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            margin-bottom: 12px;
+        }
+        .idea-card .summary-text {
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+        .idea-card .status {
+            margin-top: 15px;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 0.85em;
+            font-weight: bold;
+            display: inline-block;
+        }
+        .status-draft { background: #fff3cd; color: #856404; }
+        .status-developing { background: #cce5ff; color: #004085; }
+        .status-mature { background: #d4edda; color: #155724; }
+
+        /* 折叠详情 */
+        .idea-card .detail-wrap {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+        .idea-card .detail-wrap.open {
+            max-height: 5000px;
+        }
+        .idea-card .detail-inner {
+            padding-top: 15px;
+            border-top: 1px dashed #ddd;
+            margin-top: 15px;
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.93em;
+        }
+        .expand-hint {
+            display: inline-block;
+            margin-top: 12px;
+            color: #667eea;
+            font-size: 0.85em;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+        }
+        .expand-hint:hover {
+            text-decoration: underline;
+        }
+
+        /* 分类颜色 */
+        .cat-ai { border-left-color: #667eea; }
+        .cat-ai .category-tag { background: #667eea; color: white; }
+        .cat-iot { border-left-color: #28a745; }
+        .cat-iot .category-tag { background: #28a745; color: white; }
+        .cat-tool { border-left-color: #fd7e14; }
+        .cat-tool .category-tag { background: #fd7e14; color: white; }
+        .cat-hardware { border-left-color: #e83e8c; }
+        .cat-hardware .category-tag { background: #e83e8c; color: white; }
+
+        /* === 查看更多按钮 === */
+        .show-more-wrap {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .show-more-btn {
+            padding: 12px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        .show-more-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        .hidden-card { display: none !important; }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .idea-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💡 个人想法</h1>
+            <p>创新思维与灵感库</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="index.html">🏠 首页</a></li>
+                <li><a href="about.html">📝 简介</a></li>
+                <li><a href="projects.html">🚀 项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 个人想法</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div class="intro-box">
+                <h3>🌟 这里是创新想法的孵化器</h3>
+                <p>每一个伟大的发明都始于一个小小的想法。这里记录着我在学习、生活和实践中产生的各种灵感，从 AI 架构到 IoT 方案，从效率工具到硬件创意。</p>
+                <br>
+                <p>想法库会持续更新，最新想法优先展示。</p>
+            </div>
+
+            <div class="section">
+                <h2>🎯 想法库</h2>
+
+                <!-- 分类标签 -->
+                <div class="tag-bar" id="tagBar">
+                    <button class="tag-btn active" data-tag="all">📋 全部</button>
+                    <button class="tag-btn" data-tag="ai">🤖 AI 架构</button>
+                    <button class="tag-btn" data-tag="iot">📡 IoT 方案</button>
+                    <button class="tag-btn" data-tag="tool">⚡ 效率工具</button>
+                    <button class="tag-btn" data-tag="hardware">🔧 硬件创意</button>
+                </div>
+
+                <!-- 想法卡片 -->
+                <div class="idea-grid" id="ideaGrid"></div>
+
+                <!-- 查看更多按钮 -->
+                <div class="show-more-wrap" id="showMoreWrap">
+                    <button class="show-more-btn" id="showMoreBtn">📖 查看更多想法</button>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+        </footer>
+    </div>
+
+    <script>
+        // ======== 想法数据 ========
+        const ideasData = [
+            {
+                id: 1,
+                title: "从控制理论与硬件极限，透视 CTM（连续思维机）神经架构的边缘落地挑战",
+                category: "ai",
+                categoryLabel: "🤖 AI 架构",
+                date: "2026-07-04",
+                version: "v1.0",
+                status: "developing",
+                statusLabel: "完善中",
+                summary: "CTM 颠覆了传统 Transformer 的逐 Token 预测模式，允许神经元在隐空间内高频共振迭代。本文从控制理论、硬件存取带宽、实时系统非确定性延迟的角度，客观分析其在边缘端落地的三大核心瓶颈。",
+                detail: `
+                    <h4 style="color:#667eea;margin:15px 0 10px">1. 什么是 CTM 神经架构？</h4>
+                    <p>近期备受关注的 <strong>Continuous Thought Model（CTM，连续思维机）</strong> 颠覆了传统 Transformer 架构"单向开环、逐 Token 预测"的模式。它的核心思想可以类比为人类的"深度思考"或控制系统中的"多轮高频迭代"：</p>
+                    <ul style="margin:10px 0;padding-left:20px">
+                        <li>算法允许神经元或内部智能体在隐空间（Latent Space）内，通过增加<strong>内部思考时间步（Ticks）</strong>进行连续的计算与频率同步。</li>
+                        <li>它引入了类似于控制系统中的<strong>反馈回路与多多对比校验机制</strong>，让网络在最终输出答案前，在内部进行高频的隐空间纠偏。</li>
+                    </ul>
+                    <p>这种架构在算法逻辑上非常优雅，但如果从<strong>底层硬件拓扑</strong>和<strong>具身智能实时控制</strong>的视角来看，它在落地时面临着极其硬核的物理屏障。</p>
+
+                    <h4 style="color:#667eea;margin:15px 0 10px">2. 跨界视角：CTM 与分层控制架构的映射对比</h4>
+                    <p>如果将 CTM 的宏观数学逻辑，映射到机器人常用的<strong>分层控制架构</strong>中，两者的认知拓扑高度相似，但在执行策略上走向了两个极端：</p>
+                    <table style="width:100%;border-collapse:collapse;margin:10px 0;font-size:0.9em">
+                        <tr style="background:#667eea;color:white"><th style="padding:8px;border:1px solid #ddd">拓扑维度</th><th style="padding:8px;border:1px solid #ddd">CTM 神经架构</th><th style="padding:8px;border:1px solid #ddd">传统分层控制架构</th></tr>
+                        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">底层执行单元</td><td style="padding:8px;border:1px solid #ddd">单个神经元（盲目计算当前词概率）</td><td style="padding:8px;border:1px solid #ddd">底层 PID 控制器（盲目死抠当前 Error）</td></tr>
+                        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">时间轴引入</td><td style="padding:8px;border:1px solid #ddd">增加内部思考步（Ticks），锁存开火轨迹</td><td style="padding:8px;border:1px solid #ddd">环形缓冲区（Ring Buffer），无间断锁存历史数据</td></tr>
+                        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">状态校验</td><td style="padding:8px;border:1px solid #ddd">神经元智能体通过隐空间频率同步进行检查</td><td style="padding:8px;border:1px solid #ddd">实际值反向回传智能端，做多轮动态校验</td></tr>
+                        <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold">策略演进</td><td style="padding:8px;border:1px solid #ddd">随时间步长连续迭代，寻找隐空间平衡态</td><td style="padding:8px;border:1px solid #ddd">"捕获-复盘-固化"工作流，将思考提炼为 if-else 潜意识</td></tr>
+                    </table>
+
+                    <h4 style="color:#667eea;margin:15px 0 10px">3. CTM 架构在物理硬件上的核心瓶颈分析</h4>
+                    <p><strong>3.1 内存墙与存取带宽的物理封印</strong></p>
+                    <p>CTM 要求海量的神经元在隐空间内进行高频的连续迭代和状态更新。在现有的冯·诺依曼架构下，这种高频的内部状态读写会带来极其恐怖的<strong>内存访问开销</strong>，瞬间挤爆芯片的缓存，引发严重的"内存墙"效应。具身智能的边缘端芯片（MCU、NPU）功耗和带宽极度受限，根本无法承受这种高频高带宽的内部存取震荡。</p>
+                    <p><strong>3.2 高频时变推理与边缘实时性的冲突</strong></p>
+                    <p>在具身智能应用中，底层的控制频率必须死死稳定在 1kHz（毫秒级无延迟响应）。CTM 架构的"内部思考时间步"通常是<strong>非确定性的</strong>，这种非确定性计算延迟如果直接介入控制流，会导致底层控制系统的相位滞后瞬间暴增，引发执行器冲击甚至系统崩溃。</p>
+                    <p><strong>3.3 架构哲学的解耦博弈：高维捏合 vs 低维固化</strong></p>
+                    <p>CTM 试图把"做事"与"思考"的逻辑全部强行揉碎、捏合在每一个微观的神经元计算中。而控制工程更倾向于<strong>"高内聚、低耦合"的解耦哲学</strong>——让干活的底层（PID）在微秒级保持死板、快速的高频响应；让智能层在低频进行高维思考，一旦提炼出危险特征，立刻编译成极轻量的 if-else 条件反射逻辑，固化进底层。</p>
+
+                    <h4 style="color:#667eea;margin:15px 0 10px">4. 结论与未来展望</h4>
+                    <p>CTM 神经架构代表了 AI 走向"连续思考"的伟大尝试，但在当前的硅基硬件架构下，其巨大的算力、带宽和非确定性延迟，使其极难直接应用于高频的边缘控制系统。</p>
+                    <p>未来的具身智能完全体，或许不应该盲目在微观神经元里堆砌高频共振，而是应该结合<strong>控制理论的分层拓扑</strong>——让神经网络在云端或主机层负责高维的预测地平线规划，而将"思考后的策略"硬核固化为边缘硬件的潜意识反射弧。</p>
+                    <p style="font-weight:bold;color:#667eea;margin-top:10px">优雅地给残缺的物理硬件打补丁，才是工程落地的最强武器。</p>
+                `
+            },
+            {
+                id: 2,
+                title: "边缘端轻量级 MQTT 消息代理设计",
+                category: "iot",
+                categoryLabel: "📡 IoT 方案",
+                date: "2026-07-03",
+                version: "v0.3",
+                status: "draft",
+                statusLabel: "构思中",
+                summary: "在资源受限的 MCU 上实现轻量级 MQTT Broker，支持 QoS 0/1、保留消息、遗嘱消息，内存占用控制在 50KB 以内。"
+            },
+            {
+                id: 3,
+                title: "基于 Tailscale 的零配置远程开发环境",
+                category: "tool",
+                categoryLabel: "⚡ 效率工具",
+                date: "2026-07-02",
+                version: "v1.0",
+                status: "mature",
+                statusLabel: "成熟",
+                summary: "利用 Tailscale 的虚拟组网能力，搭建零配置的远程开发环境，支持 VNC、SSH、文件共享，手机和电脑随时互联。"
+            },
+            {
+                id: 4,
+                title: "双系统 PID 控制器：智能与传统的融合",
+                category: "hardware",
+                categoryLabel: "🔧 硬件创意",
+                date: "2026-07-01",
+                version: "v0.5",
+                status: "developing",
+                statusLabel: "完善中",
+                summary: "将传统 PID 的确定性控制与智能算法的自适应能力结合，设计双系统架构：底层微秒级死板响应，智能层低频高维思考。"
+            },
+            {
+                id: 5,
+                title: "AI 辅助的嵌入式固件自动调参工具",
+                category: "ai",
+                categoryLabel: "🤖 AI 架构",
+                date: "2026-06-28",
+                version: "v0.2",
+                status: "draft",
+                statusLabel: "构思中",
+                summary: "利用强化学习自动搜索嵌入式 PID 参数，替代人工手动调参，支持实时在线优化和离线仿真两种模式。"
+            },
+            {
+                id: 6,
+                title: "低功耗 LoRa 传感器网络节点设计",
+                category: "iot",
+                categoryLabel: "📡 IoT 方案",
+                date: "2026-06-25",
+                version: "v1.0",
+                status: "mature",
+                statusLabel: "成熟",
+                summary: "基于 ESP32 + LoRa 模块的传感器节点，支持温湿度、气压、光照采集，单电池续航 6 个月以上。"
+            },
+            {
+                id: 7,
+                title: "命令行快速笔记工具（类 memo）",
+                category: "tool",
+                categoryLabel: "⚡ 效率工具",
+                date: "2026-06-20",
+                version: "v0.8",
+                status: "developing",
+                statusLabel: "完善中",
+                summary: "终端下的轻量级笔记工具，支持标签、搜索、Markdown 渲染，数据存储在本地 SQLite，支持同步到远端。"
+            },
+            {
+                id: 8,
+                title: "RISC-V 开发板的 AI 推理加速方案",
+                category: "hardware",
+                categoryLabel: "🔧 硬件创意",
+                date: "2026-06-15",
+                version: "v0.1",
+                status: "draft",
+                statusLabel: "构思中",
+                summary: "在 LicheeRV Nano 等 RISC-V 开发板上部署轻量级 AI 推理引擎，探索向量指令集加速和量化方案的可行性。"
+            }
+        ];
+
+        // 分类配置
+        const categories = {
+            all: { emoji: "📋", label: "全部" },
+            ai: { emoji: "🤖", label: "AI 架构" },
+            iot: { emoji: "📡", label: "IoT 方案" },
+            tool: { emoji: "⚡", label: "效率工具" },
+            hardware: { emoji: "🔧", label: "硬件创意" }
+        };
+
+        // 状态
+        let currentTag = "all";
+        let showAll = false;
+
+        // ======== 渲染函数 ========
+        function renderIdeas() {
+            const grid = document.getElementById("ideaGrid");
+            const wrap = document.getElementById("showMoreWrap");
+            const btn = document.getElementById("showMoreBtn");
+
+            // 筛选
+            let filtered = currentTag === "all"
+                ? [...ideasData]
+                : ideasData.filter(d => d.category === currentTag);
+
+            // 排序：按日期降序
+            filtered.sort((a, b) => b.date.localeCompare(a.date));
+
+            // 是否显示全部
+            const displayList = showAll ? filtered : filtered.slice(0, 3);
+
+            // 渲染卡片
+            grid.innerHTML = displayList.map(d => {
+                const catClass = "cat-" + d.category;
+                const statusClass = "status-" + d.status;
+                return `
+                    <div class="idea-card ${catClass}">
+                        <span class="category-tag">${d.categoryLabel}</span>
+                        <h3>${d.title}</h3>
+                        <div class="meta">
+                            <span>📅 ${d.date}</span>
+                            <span>🔄 ${d.version}</span>
+                        </div>
+                        <div class="summary-text">${d.summary}</div>
+                        <div class="status ${statusClass}">${d.statusLabel}</div>
+                        ${d.detail ? `<span class="expand-hint" onclick="toggleDetail(this)">📖 展开全文</span><div class="detail-wrap"><div class="detail-inner">${d.detail}</div></div>` : ""}
+                    </div>
+                `;
+            }).join("");
+
+            // 控制查看更多按钮
+            if (filtered.length <= 3) {
+                wrap.style.display = "none";
+            } else {
+                wrap.style.display = "block";
+                btn.textContent = showAll ? "📕 收起" : `📖 查看更多想法（共 ${filtered.length} 条）`;
+            }
+        }
+
+        function updateTagButtons() {
+            document.querySelectorAll(".tag-btn").forEach(btn => {
+                btn.classList.toggle("active", btn.dataset.tag === currentTag);
+            });
+        }
+
+        // ======== 事件绑定 ========
+        function toggleDetail(el) {
+            const wrap = el.nextElementSibling;
+            const isOpen = wrap.classList.toggle("open");
+            el.textContent = isOpen ? "📕 收起全文" : "📖 展开全文";
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // 标签点击
+            document.querySelectorAll(".tag-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    currentTag = btn.dataset.tag;
+                    showAll = false;
+                    updateTagButtons();
+                    renderIdeas();
+                });
+            });
+
+            // 查看更多
+            document.getElementById("showMoreBtn").addEventListener("click", () => {
+                showAll = !showAll;
+                renderIdeas();
+            });
+
+            // 初始渲染
+            renderIdeas();
+        });
+    </script>
+</body>
+</html>

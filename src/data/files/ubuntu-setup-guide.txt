@@ -1,0 +1,37 @@
+==========================================
+Ubuntu 22.04 开发环境配置指南
+==========================================
+
+一、系统更新
+-----------
+sudo apt update && sudo apt upgrade -y
+
+二、基础工具安装
+-----------
+sudo apt install -y curl wget git vim htop build-essential
+
+三、开发环境
+-----------
+- Go: 从官网下载 tar.gz，解压到 /usr/local
+- Node.js: 使用 nvm 管理版本
+- Python: 系统自带 3.10，建议安装 pip
+
+四、Docker
+-----------
+sudo apt install docker.io docker-compose-v2
+sudo usermod -aG docker $USER
+
+五、推荐工具
+-----------
+- VS Code: 代码编辑器
+- Terminator: 终端模拟器
+- Postman: API 调试工具
+- DBeaver: 数据库管理
+
+六、常见问题
+-----------
+Q: 权限不足？
+A: 使用 sudo 或在 /etc/sudoers 中配置
+
+Q: 端口被占用？
+A: sudo lsof -i :端口号 查看占用进程

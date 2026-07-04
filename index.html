@@ -1,17 +1,193 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>小熙 · 个人网站</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/index-C5bw8zMq.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-DHutUhr5.css">
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小熙的个人主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            color: white;
+        }
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        nav ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+        }
+        nav ul li a {
+            display: block;
+            padding: 20px 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        nav ul li a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .content {
+            background: white;
+            border-radius: 10px;
+            padding: 40px;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .content h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        .intro-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s;
+        }
+        .intro-card:hover {
+            transform: translateY(-3px);
+        }
+        .intro-card h3 {
+            color: #667eea;
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+        .intro-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        .intro-card .highlight {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #667eea15;
+            color: #667eea;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9em;
+            margin: 3px 2px;
+        }
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1.1em;
+            }
+            .content {
+                padding: 20px;
+            }
+            nav ul {
+                grid-template-columns: 1fr 1fr;
+            }
+            .intro-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👋 你好，我是小熙</h1>
+            <p>智能制造工程专业 | 创新者 | 探索者</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="index.html">🏠 首页</a></li>
+                <li><a href="about.html">📝 简介</a></li>
+                <li><a href="projects.html">🚀 项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 个人想法</a></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            <h2>欢迎来到我的个人空间</h2>
+            <p style="font-size:1.1em; color:#666; line-height:1.8;">
+                这里记录着我的学习历程、项目实践、比赛经历以及创新思考。作为一名智能制造工程专业的学生，我热衷于探索技术与创新的结合点，不断挑战自我，追求卓越。
+            </p>
+            
+            <div class="intro-grid">
+                <div class="intro-card">
+                    <h3>🎯 当前专注</h3>
+                    <p>
+                        <span class="highlight">智能制造</span>
+                        <span class="highlight">自动化技术</span>
+                        <span class="highlight">三维设计</span>
+                        <span class="highlight">创新项目研发</span>
+                    </p>
+                    <br>
+                    <p>持续学习前沿技术，在实践中积累经验，将理论知识转化为实际成果。</p>
+                </div>
+                <div class="intro-card">
+                    <h3>📌 最新动态</h3>
+                    <p>✅ 个人网站全新上线<br>
+                       🏆 参加达索设计师大赛<br>
+                       🏅 省工科3D赛道校内选拔入围<br>
+                       📚 持续学习与成长中</p>
+                </div>
+            </div>
+
+
+        </div>
+        
+        <footer>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+        </footer>
+    </div>
+</body>
 </html>
