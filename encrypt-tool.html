@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>加密工具 - 给小熙</title></head>
+<body style="font-family:sans-serif;max-width:600px;margin:40px auto;padding:20px">
+    <h2>🔒 文件加密工具</h2>
+    <p>输入内容 + 暗号，生成加密字符串，粘贴到 secret-download.html 的 encryptedFiles 里</p>
+    <hr>
+    <label>📝 文件内容：<br><textarea id="content" rows="6" style="width:100%;margin-top:6px" placeholder="输入要加密的文件内容..."></textarea></label>
+    <br><br>
+    <label>🔑 暗号密码：<br><input id="password" type="text" value="lx2026" style="width:100%;margin-top:6px;padding:8px"></label>
+    <br><br>
+    <label>📄 文件名：<br><input id="filename" type="text" value="myfile.txt" style="width:100%;margin-top:6px;padding:8px"></label>
+    <br><br>
+    <button onclick="doEncrypt()" style="padding:12px 30px;background:#667eea;color:white;border:none;border-radius:8px;font-size:1.1em;cursor:pointer">🔐 加密</button>
+    <br><br>
+    <div id="result" style="display:none;background:#f0f4ff;border-radius:8px;padding:15px;word-break:break-all">
+        <p style="font-weight:bold;color:#667eea">✅ 加密结果：</p>
+        <pre id="encryptedText" style="background:#e8ecf8;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.85em"></pre>
+        <p style="color:#888;font-size:0.85em">复制上面内容，替换到 encryptedFiles 数组的 encrypted 字段</p>
+        <pre id="codeBlock" style="background:#2d2d2d;color:#ccc;padding:12px;border-radius:6px;overflow-x:auto;font-size:0.85em;margin-top:10px"></pre>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+    <script>
+        function doEncrypt() {
+            const content = document.getElementById('content').value;
+            const password = document.getElementById('password').value;
+            const filename = document.getElementById('filename').value;
+            if (!content || !password) { alert('请输入内容和暗号'); return; }
+            const encrypted = CryptoJS.AES.encrypt(content, password).toString();
+            document.getElementById('encryptedText').textContent = encrypted;
+            document.getElementById('codeBlock').textContent =
+`{
+    name: "${filename}",
+    icon: "📄",
+    size: "${(new Blob([content]).size / 1024).toFixed(1)} KB",
+    desc: "请填写文件描述",
+    encrypted: "${encrypted}"
+},`;
+            document.getElementById('result').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

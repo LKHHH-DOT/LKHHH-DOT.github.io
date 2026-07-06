@@ -3,237 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="智能问卷系列 — AI驱动的智能问卷系统，支持AI审核、反作弊、自动出题等功能。">
     <title>智能问卷系列 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-        }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        nav {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        nav ul li a {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        nav ul li a:hover {
-            transform: translateY(-3px);
-        }
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .page-header {
-            margin-bottom: 30px;
-        }
-        .back-link {
-            display: inline-block;
-            color: #667eea;
-            font-weight: bold;
-            text-decoration: none;
-            margin-bottom: 12px;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        .page-title {
-            font-size: 2em;
-            color: #667eea;
-            margin-bottom: 8px;
-        }
-        .page-desc {
-            color: #666;
-            font-size: 1rem;
-        }
-
-        /* ===== 项目卡片 ===== */
-        .project-list {
-            display: grid;
-            gap: 25px;
-            grid-template-columns: 1fr;
-        }
-        .project-card {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 25px;
-            border-left: 4px solid #10b981;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .project-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-        .project-number {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #10b981;
-            opacity: 0.6;
-        }
-        .project-status {
-            font-size: 0.8rem;
-            padding: 4px 10px;
-            border-radius: 999px;
-            font-weight: 500;
-        }
-        .status-completed {
-            background: #d4edda;
-            color: #155724;
-        }
-        .project-card h3 {
-            color: #10b981;
-            margin-bottom: 12px;
-            font-size: 1.3em;
-        }
-        .project-card p {
-            color: #666;
-            line-height: 1.7;
-        }
-        .tags {
-            margin: 12px 0;
-        }
-        .tag {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #10b981;
-            color: white;
-            border-radius: 20px;
-            font-size: 0.85em;
-            margin-right: 8px;
-            margin-bottom: 8px;
-        }
-
-        /* ===== 功能列表 ===== */
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-            margin: 16px 0;
-        }
-        .feature-item {
-            background: white;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 12px 16px;
-            font-size: 0.9rem;
-        }
-        .feature-item span {
-            margin-right: 6px;
-        }
-
-        .tech-stack {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        .tech-tag {
-            display: inline-block;
-            padding: 5px 12px;
-            background: #e8f5e9;
-            color: #2e7d32;
-            border-radius: 20px;
-            font-size: 0.85em;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-        .empty-state h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #667eea;
-        }
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 40px;
-            opacity: 0.8;
-        }
-        @media (max-width: 768px) {
-            header h1 { font-size: 2em; }
-            .content { padding: 20px; }
-        }
+        .page-header { margin-bottom: 30px; }
+        .page-title { font-size: 2em; color: #10b981; margin-bottom: 8px; }
+        .page-desc { color: #666; font-size: 1rem; }
+        .project-list { display: grid; gap: 25px; grid-template-columns: 1fr; }
+        .project-card { background: #f8f9fa; border-radius: 10px; padding: 25px; border-left: 4px solid #10b981; transition: transform 0.3s, box-shadow 0.3s; }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .project-number { font-size: 1.1rem; font-weight: 800; color: #10b981; opacity: 0.6; }
+        .project-status { font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; font-weight: 500; }
+        .status-completed { background: #d4edda; color: #155724; }
+        .project-card h3 { color: #10b981; margin-bottom: 12px; font-size: 1.3em; }
+        .project-card p { color: #666; line-height: 1.7; }
+        .tags { margin: 12px 0; }
+        .tag { display: inline-block; padding: 5px 12px; background: #10b981; color: white; border-radius: 20px; font-size: 0.85em; margin-right: 8px; margin-bottom: 8px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
+        .feature-item { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 16px; font-size: 0.9rem; }
+        .feature-item span { margin-right: 6px; }
+        .tech-stack { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .tech-tag { display: inline-block; padding: 5px 12px; background: #e8f5e9; color: #2e7d32; border-radius: 20px; font-size: 0.85em; }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="small-header">
             <h1>🚀 项目展示</h1>
             <p>我的实践与创新项目</p>
         </header>
         
         <nav>
-            <ul>
-                <li><a href="index-static.html">🏠 首页</a></li>
-                <li><a href="about.html">📝 简介</a></li>
-                <li><a href="projects.html">🚀 项目</a></li>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
-                <li><a href="ideas.html">💡 个人想法</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
         
         <div class="content">
             <div class="page-header">
                 <a href="projects.html" class="back-link">← 返回项目列表</a>
-		<a href="https://github.com/LKHHH-DOT/AI-AGENT-WORKR/tree/main/share/smart-quersion-v2.0.0" class="back-link">下载</a>
+                <a href="https://github.com/LKHHH-DOT/AI-AGENT-WORKR/tree/main/share/smart-quersion-v2.0.0" class="back-link" style="margin-left:20px;">下载</a>
                 <h1 class="page-title">📋 智能问卷系列</h1>
                 <p class="page-desc">AI驱动的智能问卷系统系列，涵盖问卷创建、AI审核、数据分析等功能。</p>
             </div>
 
             <div class="project-list">
-                <!-- #1 智能问卷系统 v2.0.0 -->
                 <div class="project-card">
                     <div class="project-header">
                         <div class="project-number">#1</div>
@@ -269,8 +106,48 @@
         </div>
         
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navMenu");
+            const btn = document.querySelector(".hamburger");
+            menu.classList.toggle("open");
+            btn.classList.toggle("active");
+        }
+        window.addEventListener("scroll", function() {
+            const btn = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                btn.classList.add("visible");
+            } else {
+                btn.classList.remove("visible");
+            }
+        });
+        (function() {
+            const key = "myweb_visitor_count";
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById("visitCount").textContent = count;
+        })();
+    </script>
 </body>
 </html>

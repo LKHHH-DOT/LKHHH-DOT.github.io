@@ -3,128 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="VNC 远程桌面配置指南 — 从零开始的保姆级教程，用手机远程控制 Ubuntu 桌面。">
     <title>VNC 远程桌面配置指南 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.8;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        header { text-align: center; padding: 40px 20px; color: white; }
-        header h1 { font-size: 2.5em; margin-bottom: 10px; }
-        nav {
-            background: white; border-radius: 10px; padding: 15px;
-            margin-top: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none; display: flex; flex-wrap: wrap;
-            gap: 10px; justify-content: center;
-        }
-        nav ul li a {
-            display: inline-block; padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; text-decoration: none; border-radius: 8px; font-weight: bold;
-            transition: transform 0.3s;
-        }
-        nav ul li a:hover { transform: translateY(-3px); }
-        .content {
-            background: white; border-radius: 10px; padding: 40px;
-            margin-top: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .content h2 {
-            color: #667eea; border-left: 4px solid #667eea;
-            padding-left: 15px; margin: 35px 0 20px; font-size: 1.6em;
-        }
-        .content h2:first-child { margin-top: 0; }
+        .content h2 { color: #667eea; border-left: 4px solid #667eea; padding-left: 15px; margin: 35px 0 20px; font-size: 1.6em; }
+        .content h2:first-of-type { margin-top: 0; }
         .content h3 { color: #555; margin: 25px 0 15px; font-size: 1.3em; }
         .content h4 { color: #666; margin: 20px 0 10px; font-size: 1.1em; }
         .content p { margin-bottom: 15px; color: #555; }
         .content strong { color: #333; }
-        .content blockquote {
-            border-left: 4px solid #667eea; background: #f0f2ff;
-            padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;
-            color: #555;
-        }
+        .content blockquote { border-left: 4px solid #667eea; background: #f0f2ff; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; color: #555; }
         .content blockquote p { margin-bottom: 0; }
-        .content pre {
-            background: #1e1e2e; color: #cdd6f4; padding: 18px 20px;
-            border-radius: 8px; overflow-x: auto; margin: 15px 0;
-            font-size: 0.9em; line-height: 1.6;
-        }
-        .content code {
-            font-family: "Fira Code", "Cascadia Code", Consolas, monospace;
-        }
-        .content p code, .content li code {
-            background: #f0f0f0; padding: 2px 8px; border-radius: 4px;
-            font-size: 0.9em; color: #e74c3c;
-        }
+        .content pre { background: #1e1e2e; color: #cdd6f4; padding: 18px 20px; border-radius: 8px; overflow-x: auto; margin: 15px 0; font-size: 0.9em; line-height: 1.6; }
+        .content code { font-family: "Fira Code", "Cascadia Code", Consolas, monospace; }
+        .content p code, .content li code { background: #f0f0f0; padding: 2px 8px; border-radius: 4px; font-size: 0.9em; color: #e74c3c; }
         .content ul, .content ol { margin: 10px 0 15px 25px; color: #555; }
         .content li { margin-bottom: 8px; }
-        .content table {
-            width: 100%; border-collapse: collapse; margin: 20px 0;
-        }
-        .content th, .content td {
-            border: 1px solid #ddd; padding: 12px 15px; text-align: left;
-        }
-        .content th {
-            background: #667eea; color: white; font-weight: bold;
-        }
+        .content table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .content th, .content td { border: 1px solid #ddd; padding: 12px 15px; text-align: left; }
+        .content th { background: #667eea; color: white; font-weight: bold; }
         .content tr:nth-child(even) { background: #f8f9fa; }
-        .content hr {
-            border: none; border-top: 2px dashed #ddd; margin: 30px 0;
-        }
-        .back-link {
-            display: inline-block; margin-top: 30px;
-            color: #667eea; text-decoration: none; font-weight: bold;
-        }
-        .back-link:hover { text-decoration: underline; }
-        .diagram {
-            background: #f8f9fa; border: 1px solid #e0e0e0;
-            border-radius: 8px; padding: 20px; margin: 20px 0;
-            font-family: "Fira Code", Consolas, monospace; font-size: 0.9em;
-            line-height: 1.6; white-space: pre; overflow-x: auto;
-        }
-        .tip {
-            background: #e8f5e9; border-left: 4px solid #4caf50;
-            padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;
-        }
-        .warning {
-            background: #fff3e0; border-left: 4px solid #ff9800;
-            padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;
-        }
-        .error {
-            background: #ffebee; border-left: 4px solid #f44336;
-            padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0;
-        }
-        footer {
-            text-align: center; padding: 30px; color: white;
-            margin-top: 40px; opacity: 0.8;
-        }
-        @media (max-width: 768px) {
-            header h1 { font-size: 1.8em; }
-            .content { padding: 20px; }
-        }
+        .content hr { border: none; border-top: 2px dashed #ddd; margin: 30px 0; }
+        .diagram { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; margin: 20px 0; font-family: "Fira Code", Consolas, monospace; font-size: 0.9em; line-height: 1.6; white-space: pre; overflow-x: auto; }
+        .tip { background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .warning { background: #fff3e0; border-left: 4px solid #ff9800; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+        .error { background: #ffebee; border-left: 4px solid #f44336; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="small-header">
             <h1>VNC 远程桌面配置指南</h1>
             <p>从零开始保姆级教程 — 用手机远程控制 Ubuntu 桌面</p>
         </header>
         
         <nav>
-            <ul>
-                <li><a href="index-static.html">首页</a></li>
-                <li><a href="about.html">简介</a></li>
-                <li><a href="projects.html">项目</a></li>
-                <li><a href="experience.html">个人经历</a></li>
-                <li><a href="ideas.html">个人想法</a></li>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
         
@@ -372,8 +309,48 @@ ss -tlnp | grep 5900</code></pre>
         </div>
         
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navMenu");
+            const btn = document.querySelector(".hamburger");
+            menu.classList.toggle("open");
+            btn.classList.toggle("active");
+        }
+        window.addEventListener("scroll", function() {
+            const btn = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                btn.classList.add("visible");
+            } else {
+                btn.classList.remove("visible");
+            }
+        });
+        (function() {
+            const key = "myweb_visitor_count";
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById("visitCount").textContent = count;
+        })();
+    </script>
 </body>
 </html>

@@ -3,193 +3,609 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="小熙的个人主页 — 智能制造工程专业学生，记录学习历程、项目实践、比赛经历与创新思考。">
+    <meta name="keywords" content="小熙,智能制造,个人主页,机器人,PID,仿生智慧">
+    <meta name="author" content="小熙">
     <title>小熙的个人主页</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
+        /* ===== 首页专属样式 ===== */
+
+        /* Hero 区域 */
+        .hero {
             text-align: center;
-            padding: 60px 20px;
+            padding: 80px 20px 60px;
             color: white;
+            position: relative;
+            overflow: hidden;
         }
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+            animation: heroGlow 8s ease-in-out infinite alternate;
+        }
+        @keyframes heroGlow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-10%, -5%); }
+        }
+        .hero h1 {
+            font-size: 3.2em;
+            margin-bottom: 12px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
         }
-        header p {
+        .hero .subtitle {
             font-size: 1.3em;
             opacity: 0.9;
+            position: relative;
         }
-        nav {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
-        }
-        nav ul li a {
-            display: block;
-            padding: 20px 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
+        .hero .tagline {
+            margin-top: 20px;
             font-size: 1.05em;
-            font-weight: bold;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        nav ul li a:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .content h2 {
-            color: #667eea;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-        .intro-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 25px;
-        }
-        .intro-card {
-            background: #f8f9fa;
-            border-radius: 12px;
-            padding: 25px;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s;
-        }
-        .intro-card:hover {
-            transform: translateY(-3px);
-        }
-        .intro-card h3 {
-            color: #667eea;
-            font-size: 1.2em;
-            margin-bottom: 12px;
-        }
-        .intro-card p {
-            color: #666;
+            opacity: 0.8;
+            position: relative;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
             line-height: 1.8;
         }
-        .intro-card .highlight {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #667eea15;
-            color: #667eea;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 0.9em;
-            margin: 3px 2px;
+
+        /* 快速统计 */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
         }
-        footer {
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 15px;
             text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 40px;
-            opacity: 0.8;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
         }
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        .stat-card .stat-icon {
+            font-size: 1.8em;
+            margin-bottom: 6px;
+        }
+        .stat-card .stat-number {
+            font-size: 1.6em;
+            font-weight: 800;
+            color: #667eea;
+        }
+        .stat-card .stat-label {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        /* 内容分块标题 */
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #667eea;
+            border-left: 4px solid #667eea;
+            padding-left: 15px;
+        }
+        .section-title .more-link {
+            margin-left: auto;
+            font-size: 0.6em;
+            font-weight: normal;
+            color: #999;
+            text-decoration: none;
+        }
+        .section-title .more-link:hover {
+            color: #667eea;
+        }
+
+        /* 最新动态时间线（首页精简版） */
+        .home-timeline {
+            display: grid;
+            gap: 12px;
+        }
+        .home-timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 18px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 3px solid #667eea;
+            transition: transform 0.2s;
+        }
+        .home-timeline-item:hover {
+            transform: translateX(4px);
+        }
+        .home-timeline-item .tl-icon {
+            font-size: 1.3em;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 8px;
+        }
+        .home-timeline-item .tl-content {
+            flex: 1;
+            min-width: 0;
+        }
+        .home-timeline-item .tl-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+        }
+        .home-timeline-item .tl-date {
+            font-size: 0.8em;
+            color: #aaa;
+            margin-top: 3px;
+        }
+
+        /* 精选想法卡片 */
+        .featured-ideas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+        .featured-idea {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 22px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .featured-idea:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .featured-idea .fi-category {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            background: #667eea20;
+            color: #667eea;
+        }
+        .featured-idea .fi-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+        .featured-idea .fi-summary {
+            font-size: 0.88em;
+            color: #666;
+            line-height: 1.6;
+        }
+        .featured-idea .fi-link {
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.85em;
+            color: #667eea;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .featured-idea .fi-link:hover {
+            text-decoration: underline;
+        }
+
+        /* 成就墙 */
+        .achievement-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .achievement-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .achievement-card:hover {
+            border-color: #667eea;
+            transform: translateY(-3px);
+        }
+        .achievement-card .ach-icon {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .achievement-card .ach-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95em;
+            margin-bottom: 6px;
+        }
+        .achievement-card .ach-desc {
+            font-size: 0.82em;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        /* 技能展示 */
+        .skills-showcase {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            background: #f8f9fa;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 0.9em;
+            color: #555;
+            transition: all 0.2s;
+        }
+        .skill-badge:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+        }
+
+        /* 快捷入口 */
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+        }
+        .quick-link-card {
+            display: block;
+            padding: 18px 14px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            border: 1px solid #eee;
+            transition: all 0.3s;
+        }
+        .quick-link-card:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(102,126,234,0.3);
+        }
+        .quick-link-card .ql-icon {
+            font-size: 1.5em;
+            margin-bottom: 6px;
+        }
+        .quick-link-card .ql-label {
+            font-size: 0.88em;
+            font-weight: 600;
+        }
+
+        /* 响应式 */
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            header p {
-                font-size: 1.1em;
-            }
-            .content {
-                padding: 20px;
-            }
-            nav ul {
-                grid-template-columns: 1fr 1fr;
-            }
-            .intro-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero h1 { font-size: 2.2em; }
+            .hero { padding: 50px 15px 40px; }
+            .quick-stats { grid-template-columns: repeat(2, 1fr); margin-top: -20px; }
+            .featured-ideas { grid-template-columns: 1fr; }
+            .achievement-wall { grid-template-columns: repeat(2, 1fr); }
+            .quick-links { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
+        <!-- Hero 区域 -->
+        <div class="hero">
             <h1>👋 你好，我是小熙</h1>
-            <p>智能制造工程专业 | 创新者 | 探索者</p>
-        </header>
-        
-        <nav>
-            <ul>
-                <li><a href="index-static.html">🏠 首页</a></li>
-                <li><a href="about.html">📝 简介</a></li>
-                <li><a href="projects.html">🚀 项目</a></li>
+            <p class="subtitle">智能制造工程专业 · 创新者 · 探索者</p>
+            <p class="tagline">
+                热衷于探索技术与创新的结合点，记录学习历程、项目实践与创新思考。
+                这里是我在互联网上的个人空间。
+            </p>
+        </div>
+
+        <!-- 快速统计 -->
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">项目系列</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number">3</div>
+                <div class="stat-label">比赛经历</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💡</div>
+                <div class="stat-number">8</div>
+                <div class="stat-label">创新想法</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-number">9</div>
+                <div class="stat-label">页面数量</div>
+            </div>
+        </div>
+
+        <!-- 导航 -->
+        <nav class="grid-nav">
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
-                <li><a href="ideas.html">💡 个人想法</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
-        
+
         <div class="content">
-            <h2>欢迎来到我的个人空间</h2>
-            <p style="font-size:1.1em; color:#666; line-height:1.8;">
-                这里记录着我的学习历程、项目实践、比赛经历以及创新思考。作为一名智能制造工程专业的学生，我热衷于探索技术与创新的结合点，不断挑战自我，追求卓越。
-            </p>
-            
-            <div class="intro-grid">
-                <div class="intro-card">
-                    <h3>🎯 当前专注</h3>
-                    <p>
-                        <span class="highlight">智能制造</span>
-                        <span class="highlight">自动化技术</span>
-                        <span class="highlight">三维设计</span>
-                        <span class="highlight">创新项目研发</span>
-                    </p>
-                    <br>
-                    <p>持续学习前沿技术，在实践中积累经验，将理论知识转化为实际成果。</p>
+            <!-- 最新动态 -->
+            <div>
+                <div class="section-title">
+                    📢 最新动态
+                    <a href="experience.html" class="more-link">查看全部 →</a>
                 </div>
-                <div class="intro-card">
-                    <h3>📌 最新动态</h3>
-                    <p>✅ 个人网站全新上线<br>
-                       🏆 参加达索设计师大赛<br>
-                       🏅 省工科3D赛道校内选拔入围<br>
-                       📚 持续学习与成长中</p>
+                <div class="home-timeline">
+                    <div class="home-timeline-item">
+                        <div class="tl-icon">🖥️</div>
+                        <div class="tl-content">
+                            <div class="tl-title">成功上线开发板桌面系统</div>
+                            <div class="tl-date">📅 2026 年 7 月</div>
+                        </div>
+                    </div>
+                    <div class="home-timeline-item">
+                        <div class="tl-icon">🤖</div>
+                        <div class="tl-content">
+                            <div class="tl-title">舞蹈机器人校内赛获奖，获得晋级资格</div>
+                            <div class="tl-date">📅 2026 年 7 月</div>
+                        </div>
+                    </div>
+                    <div class="home-timeline-item">
+                        <div class="tl-icon">🎉</div>
+                        <div class="tl-content">
+                            <div class="tl-title">个人网站全新上线！</div>
+                            <div class="tl-date">📅 2026 年 7 月</div>
+                        </div>
+                    </div>
+                    <div class="home-timeline-item">
+                        <div class="tl-icon">🧠</div>
+                        <div class="tl-content">
+                            <div class="tl-title">仿生智慧（BI）公开介绍文档发布</div>
+                            <div class="tl-date">📅 2026 年 7 月</div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
+            <br>
 
+            <!-- 精选想法 -->
+            <div>
+                <div class="section-title">
+                    💡 精选想法
+                    <a href="ideas.html" class="more-link">查看全部想法 →</a>
+                </div>
+                <div class="featured-ideas">
+                    <div class="featured-idea">
+                        <span class="fi-category">🤖 AI 架构</span>
+                        <div class="fi-title">🧠 仿生智慧（BI）——超越 Transformer 的新范式</div>
+                        <div class="fi-summary">从生物神经系统中萃取设计原理，创造"知道自己知道什么、不知道自己不知道什么"的智慧体。</div>
+                        <a href="ideas.html" class="fi-link">阅读全文 →</a>
+                    </div>
+                    <div class="featured-idea">
+                        <span class="fi-category">🔧 硬件创意</span>
+                        <div class="fi-title">双系统 PID 控制器：智能与传统的融合</div>
+                        <div class="fi-summary">将传统 PID 的确定性控制与智能算法的自适应能力结合，设计双系统架构。</div>
+                        <a href="ideas.html" class="fi-link">阅读全文 →</a>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 比赛成就 -->
+            <div>
+                <div class="section-title">
+                    🏆 比赛成就
+                    <a href="experience.html" class="more-link">查看全部经历 →</a>
+                </div>
+                <div class="achievement-wall">
+                    <div class="achievement-card">
+                        <div class="ach-icon">🤖</div>
+                        <div class="ach-title">中国机器人大赛</div>
+                        <div class="ach-desc">舞蹈机器人 · 校内赛获奖</div>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="ach-icon">✈️</div>
+                        <div class="ach-title">达索设计师大赛</div>
+                        <div class="ach-desc">三维设计与智能制造</div>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="ach-icon">🏅</div>
+                        <div class="ach-title">省工科3D赛道</div>
+                        <div class="ach-desc">校内选拔入围</div>
+                    </div>
+                    <div class="achievement-card">
+                        <div class="ach-icon">🧠</div>
+                        <div class="ach-title">78元开发板</div>
+                        <div class="ach-desc">成功安装智能体</div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 技能标签 -->
+            <div>
+                <div class="section-title">🎯 技能专长</div>
+                <div class="skills-showcase">
+                    <span class="skill-badge">🐍 Python</span>
+                    <span class="skill-badge">⚙️ C/C++</span>
+                    <span class="skill-badge">🌐 JavaScript</span>
+                    <span class="skill-badge">🐧 Linux</span>
+                    <span class="skill-badge">🐳 Docker</span>
+                    <span class="skill-badge">🔧 Git</span>
+                    <span class="skill-badge">🤖 智能制造</span>
+                    <span class="skill-badge">📐 三维设计</span>
+                    <span class="skill-badge">⚡ 自动化控制</span>
+                    <span class="skill-badge">🌐 工业物联网</span>
+                    <span class="skill-badge">🧠 AI/ML</span>
+                    <span class="skill-badge">📊 数据分析</span>
+                </div>
+            </div>
+
+            <br>
+
+            <!-- 快捷入口 -->
+            <div>
+                <div class="section-title">🔗 快速访问</div>
+                <div class="quick-links">
+                    <a href="about.html" class="quick-link-card">
+                        <div class="ql-icon">📝</div>
+                        <div class="ql-label">关于我</div>
+                    </a>
+                    <a href="projects.html" class="quick-link-card">
+                        <div class="ql-icon">🚀</div>
+                        <div class="ql-label">项目展示</div>
+                    </a>
+                    <a href="experience.html" class="quick-link-card">
+                        <div class="ql-icon">🏆</div>
+                        <div class="ql-label">个人经历</div>
+                    </a>
+                    <a href="ideas.html" class="quick-link-card">
+                        <div class="ql-icon">💡</div>
+                        <div class="ql-label">想法库</div>
+                    </a>
+                    <a href="guestbook.html" class="quick-link-card">
+                        <div class="ql-icon">💬</div>
+                        <div class="ql-label">留言板</div>
+                    </a>
+                    <a href="search.html" class="quick-link-card">
+                        <div class="ql-icon">🔍</div>
+                        <div class="ql-label">全站搜索</div>
+                    </a>
+                    <a href="series-bi.html" class="quick-link-card">
+                        <div class="ql-icon">🧠</div>
+                        <div class="ql-label">仿生智慧</div>
+                    </a>
+                    <a href="vnc-guide.html" class="quick-link-card">
+                        <div class="ql-icon">🔧</div>
+                        <div class="ql-label">VNC 教程</div>
+                    </a>
+                    <a href="secret-download.html" class="quick-link-card">
+                        <div class="ql-icon">🤫</div>
+                        <div class="ql-label">暗号下载</div>
+                    </a>
+                </div>
+            </div>
         </div>
-        
+
+        <!-- 管理登录彩蛋入口（快速连点5下右下角） -->
+        <div id="adminEasterEgg" style="position:fixed;bottom:20px;right:20px;width:30px;height:30px;opacity:0;cursor:pointer;z-index:998;border-radius:50%" onclick="adminEggClick()" title=""></div>
+        <div id="adminEggPopup" style="display:none;position:fixed;bottom:60px;right:20px;background:white;border-radius:12px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:999;text-align:center;min-width:200px;border:2px solid #667eea">
+            <div style="font-size:2em;margin-bottom:8px">🔐</div>
+            <p style="color:#667eea;font-weight:bold;margin-bottom:12px">管理员入口</p>
+            <a href="admin-login.html" style="display:block;padding:10px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;text-decoration:none;font-weight:bold">前往管理登录 →</a>
+            <button onclick="document.getElementById('adminEggPopup').style.display='none'" style="margin-top:10px;border:none;background:none;color:#999;cursor:pointer;font-size:0.85em">关闭</button>
+        </div>
+        <script>
+            let adminEggClicks = 0, adminEggTimer = null;
+            function adminEggClick() {
+                adminEggClicks++;
+                if (adminEggTimer) clearTimeout(adminEggTimer);
+                adminEggTimer = setTimeout(() => { adminEggClicks = 0; }, 2000);
+                if (adminEggClicks >= 5) {
+                    adminEggClicks = 0;
+                    document.getElementById('adminEggPopup').style.display = 'block';
+                }
+            }
+        </script>
+
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 汉堡菜单
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const btn = document.querySelector('.hamburger');
+            menu.classList.toggle('open');
+            btn.classList.toggle('active');
+        }
+
+        // 回到顶部按钮
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        // 访客计数器
+        (function() {
+            const key = 'myweb_visitor_count';
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById('visitCount').textContent = count;
+        })();
+    </script>
 </body>
 </html>

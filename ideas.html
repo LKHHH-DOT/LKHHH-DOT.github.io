@@ -3,79 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="小熙的创新想法库 — AI架构、IoT方案、效率工具、硬件创意等灵感记录。">
     <title>个人想法 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-        }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-        nav {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        nav ul li a {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        nav ul li a:hover {
-            transform: translateY(-3px);
-        }
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .section h2 {
-            color: #667eea;
-            border-left: 4px solid #667eea;
-            padding-left: 15px;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
         .intro-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -91,8 +24,6 @@
             line-height: 1.8;
             opacity: 0.95;
         }
-
-        /* === 分类标签栏 === */
         .tag-bar {
             display: flex;
             flex-wrap: wrap;
@@ -118,8 +49,6 @@
             background: #667eea;
             color: white;
         }
-
-        /* === 想法卡片 === */
         .idea-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -178,8 +107,6 @@
         .status-draft { background: #fff3cd; color: #856404; }
         .status-developing { background: #cce5ff; color: #004085; }
         .status-mature { background: #d4edda; color: #155724; }
-
-        /* 折叠详情 */
         .idea-card .detail-wrap {
             max-height: 0;
             overflow: hidden;
@@ -208,8 +135,6 @@
         .expand-hint:hover {
             text-decoration: underline;
         }
-
-        /* 分类颜色 */
         .cat-ai { border-left-color: #667eea; }
         .cat-ai .category-tag { background: #667eea; color: white; }
         .cat-iot { border-left-color: #28a745; }
@@ -218,8 +143,6 @@
         .cat-tool .category-tag { background: #fd7e14; color: white; }
         .cat-hardware { border-left-color: #e83e8c; }
         .cat-hardware .category-tag { background: #e83e8c; color: white; }
-
-        /* === 查看更多按钮 === */
         .show-more-wrap {
             text-align: center;
             margin-top: 30px;
@@ -238,50 +161,41 @@
         .show-more-btn:hover {
             transform: translateY(-2px);
         }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 40px;
-            opacity: 0.8;
-        }
-
         .hidden-card { display: none !important; }
-
         @media (max-width: 768px) {
-            header h1 { font-size: 2em; }
-            .content { padding: 20px; }
             .idea-grid { grid-template-columns: 1fr; }
         }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="small-header">
             <h1>💡 个人想法</h1>
             <p>创新思维与灵感库</p>
         </header>
 
         <nav>
-            <ul>
-                <li><a href="index-static.html">🏠 首页</a></li>
-                <li><a href="about.html">📝 简介</a></li>
-                <li><a href="projects.html">🚀 项目</a></li>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
-                <li><a href="ideas.html">💡 个人想法</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
 
@@ -293,10 +207,9 @@
                 <p>想法库会持续更新，最新想法优先展示。</p>
             </div>
 
-            <div class="section">
-                <h2>🎯 想法库</h2>
+            <div>
+                <h2 class="bordered">🎯 想法库</h2>
 
-                <!-- 分类标签 -->
                 <div class="tag-bar" id="tagBar">
                     <button class="tag-btn active" data-tag="all">📋 全部</button>
                     <button class="tag-btn" data-tag="ai">🤖 AI 架构</button>
@@ -305,12 +218,32 @@
                     <button class="tag-btn" data-tag="hardware">🔧 硬件创意</button>
                 </div>
 
-                <!-- 想法卡片 -->
                 <div class="idea-grid" id="ideaGrid"></div>
 
-                <!-- 查看更多按钮 -->
                 <div class="show-more-wrap" id="showMoreWrap">
                     <button class="show-more-btn" id="showMoreBtn">📖 查看更多想法</button>
+                </div>
+            </div>
+
+            <div style="margin-top:40px">
+                <h2 class="bordered">📊 想法统计</h2>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-top:15px">
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #667eea">
+                        <div style="font-size:1.8em;font-weight:800;color:#667eea" id="statTotal">0</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">总想法数</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #28a745">
+                        <div style="font-size:1.8em;font-weight:800;color:#28a745" id="statMature">0</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">成熟想法</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #fd7e14">
+                        <div style="font-size:1.8em;font-weight:800;color:#fd7e14" id="statDeveloping">0</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">完善中</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #e83e8c">
+                        <div style="font-size:1.8em;font-weight:800;color:#e83e8c" id="statDraft">0</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">构思中</div>
+                    </div>
                 </div>
             </div>
 
@@ -318,12 +251,23 @@
         </div>
 
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
 
     <script>
-        // ======== 想法数据 ========
         const ideasData = [
             {
                 id: 1,
@@ -366,6 +310,24 @@
                     <p>CTM 神经架构代表了 AI 走向"连续思考"的伟大尝试，但在当前的硅基硬件架构下，其巨大的算力、带宽和非确定性延迟，使其极难直接应用于高频的边缘控制系统。</p>
                     <p>未来的具身智能完全体，或许不应该盲目在微观神经元里堆砌高频共振，而是应该结合<strong>控制理论的分层拓扑</strong>——让神经网络在云端或主机层负责高维的预测地平线规划，而将"思考后的策略"硬核固化为边缘硬件的潜意识反射弧。</p>
                     <p style="font-weight:bold;color:#667eea;margin-top:10px">优雅地给残缺的物理硬件打补丁，才是工程落地的最强武器。</p>
+                `
+            },
+            {
+                id: 9,
+                title: "🧠 仿生智慧（BI）——超越 Transformer 的新范式",
+                category: "ai",
+                categoryLabel: "🤖 AI 架构",
+                date: "2026-07-06",
+                version: "v1.0",
+                status: "developing",
+                statusLabel: "完善中",
+                summary: "从生物神经系统中萃取设计原理，创造'知道自己知道什么、不知道自己不知道什么'的智慧体。核心理念：智能不是'一个全能模型做所有事'，而是'多个特化系统协作的涌现结果'。",
+                detail: `
+                    <p>BI 不是对 Transformer 的改进，而是从生物神经系统萃取设计原理，创造一种新的智能范式。</p>
+                    <p>架构框架：<strong>灵魂（元认知/创造力/自我意识/价值观）</strong> + <strong>躯干（大脑分区/小脑/脑干/脊髓/桥接层）</strong></p>
+                    <p>三大核心原理：特化器官协作、全并行处理、睡眠-工作周期</p>
+                    <p style="font-weight:bold;color:#667eea;margin-top:10px">不知道就问，知道就做，累了就睡。</p>
+                    <p style="margin-top:10px">👉 详细内容见 <a href="series-bi.html" style="color:#667eea;font-weight:bold;">项目系列 → 仿生智慧（BI）</a></p>
                 `
             },
             {
@@ -447,37 +409,21 @@
             }
         ];
 
-        // 分类配置
-        const categories = {
-            all: { emoji: "📋", label: "全部" },
-            ai: { emoji: "🤖", label: "AI 架构" },
-            iot: { emoji: "📡", label: "IoT 方案" },
-            tool: { emoji: "⚡", label: "效率工具" },
-            hardware: { emoji: "🔧", label: "硬件创意" }
-        };
-
-        // 状态
         let currentTag = "all";
         let showAll = false;
 
-        // ======== 渲染函数 ========
         function renderIdeas() {
             const grid = document.getElementById("ideaGrid");
             const wrap = document.getElementById("showMoreWrap");
             const btn = document.getElementById("showMoreBtn");
 
-            // 筛选
             let filtered = currentTag === "all"
                 ? [...ideasData]
                 : ideasData.filter(d => d.category === currentTag);
 
-            // 排序：按日期降序
             filtered.sort((a, b) => b.date.localeCompare(a.date));
-
-            // 是否显示全部
             const displayList = showAll ? filtered : filtered.slice(0, 3);
 
-            // 渲染卡片
             grid.innerHTML = displayList.map(d => {
                 const catClass = "cat-" + d.category;
                 const statusClass = "status-" + d.status;
@@ -496,7 +442,6 @@
                 `;
             }).join("");
 
-            // 控制查看更多按钮
             if (filtered.length <= 3) {
                 wrap.style.display = "none";
             } else {
@@ -511,7 +456,6 @@
             });
         }
 
-        // ======== 事件绑定 ========
         function toggleDetail(el) {
             const wrap = el.nextElementSibling;
             const isOpen = wrap.classList.toggle("open");
@@ -519,7 +463,6 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
-            // 标签点击
             document.querySelectorAll(".tag-btn").forEach(btn => {
                 btn.addEventListener("click", () => {
                     currentTag = btn.dataset.tag;
@@ -528,16 +471,48 @@
                     renderIdeas();
                 });
             });
-
-            // 查看更多
             document.getElementById("showMoreBtn").addEventListener("click", () => {
                 showAll = !showAll;
                 renderIdeas();
             });
-
-            // 初始渲染
             renderIdeas();
+            updateStats();
         });
+
+        function updateStats() {
+            document.getElementById('statTotal').textContent = ideasData.length;
+            document.getElementById('statMature').textContent = ideasData.filter(d => d.status === 'mature').length;
+            document.getElementById('statDeveloping').textContent = ideasData.filter(d => d.status === 'developing').length;
+            document.getElementById('statDraft').textContent = ideasData.filter(d => d.status === 'draft').length;
+        }
+    </script>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navMenu");
+            const btn = document.querySelector(".hamburger");
+            menu.classList.toggle("open");
+            btn.classList.toggle("active");
+        }
+        window.addEventListener("scroll", function() {
+            const btn = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                btn.classList.add("visible");
+            } else {
+                btn.classList.remove("visible");
+            }
+        });
+        (function() {
+            const key = "myweb_visitor_count";
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById("visitCount").textContent = count;
+        })();
     </script>
 </body>
 </html>

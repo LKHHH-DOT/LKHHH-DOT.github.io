@@ -15,13 +15,15 @@
 ```
 my_new_web/
 ├── CNAME                     # 自定义域名配置
-├── index-static.html         # 🏠 首页
+├── style.css                 # 🎨 公共样式表（所有页面共用）
+├── index.html                # 🏠 首页
 ├── about.html                # 👤 关于我
 ├── experience.html           # 🏆 比赛经历
 ├── projects.html             # 🛠️ 项目作品
 ├── ideas.html                # 💡 技术想法/博客
 ├── series-pid-control.html   # 📚 系列文章 - PID 控制
 ├── series-smart-questionnaire.html  # 📚 系列文章 - 智能问卷
+├── series-bi.html            # 📚 系列文章 - 仿生智慧（BI）
 ├── vnc-guide.html            # 🔧 VNC 远程桌面配置指南
 └── photo/
     └── competitions/         # 🖼️ 比赛相关图片
@@ -31,13 +33,14 @@ my_new_web/
 
 | 页面 | 文件 | 说明 |
 |------|------|------|
-| 🏠 首页 | `index-static.html` | 个人简介、导航入口 |
+| 🏠 首页 | `index.html` | 个人简介、导航入口 |
 | 👤 关于我 | `about.html` | 个人介绍、技能标签 |
 | 🏆 比赛经历 | `experience.html` | 参加的各类比赛及获奖 |
 | 🛠️ 项目作品 | `projects.html` | 开发的项目展示 |
 | 💡 技术想法 | `ideas.html` | 技术思考与分享 |
 | 📚 PID 控制 | `series-pid-control.html` | PID 控制系列教程 |
 | 📚 智能问卷 | `series-smart-questionnaire.html` | 智能问卷系统说明 |
+| 📚 仿生智慧 | `series-bi.html` | 仿生智慧（BI）系列 |
 | 🔧 VNC 指南 | `vnc-guide.html` | VNC 远程桌面配置教程 |
 
 ---
@@ -72,6 +75,15 @@ npx serve .
 
 ## ✏️ 如何修改内容
 
+### 修改样式
+
+所有页面的公共样式统一在 `style.css` 中，改一个文件即可影响全站：
+
+```css
+/* 例如修改主色调 */
+--primary: #667eea;  /* 改为你喜欢的颜色 */
+```
+
 ### 修改个人信息
 
 所有页面都是纯 HTML 文件，直接用文本编辑器打开修改：
@@ -84,8 +96,9 @@ npx serve .
 ### 添加新页面
 
 1. 新建 `.html` 文件
-2. 在其他页面的导航栏中添加链接
-3. 提交推送即可
+2. 在文件顶部引用公共样式：`<link rel="stylesheet" href="style.css">`
+3. 在其他页面的导航栏中添加链接
+4. 提交推送即可
 
 ### 添加图片
 
@@ -109,6 +122,7 @@ photo/
 
 - **HTML5** — 页面结构
 - **CSS3** — 样式与动画（渐变色背景、弹性布局、响应式设计）
+- **公共样式表** — `style.css` 统一管理全站样式
 - **纯静态** — 无需数据库、无需后端，加载飞快
 
 ---

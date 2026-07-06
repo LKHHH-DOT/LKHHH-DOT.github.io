@@ -3,68 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="小熙的个人经历 — 比赛获奖、项目动态与成长轨迹。">
     <title>个人经历 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-        }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        nav {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        nav ul li a {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        nav ul li a:hover {
-            transform: translateY(-3px);
-        }
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
         .tabs {
             display: flex;
             gap: 15px;
@@ -91,21 +35,14 @@
         .tab:hover {
             transform: translateY(-2px);
         }
-        .section {
+        .section-tab {
             display: none;
         }
-        .section.active {
+        .section-tab.active {
             display: block;
         }
-        .section h2 {
-            color: #667eea;
-            border-left: 4px solid #667eea;
-            padding-left: 15px;
-            margin-bottom: 25px;
-            font-size: 1.8em;
-        }
 
-        /* ===== 比赛卡片 ===== */
+        /* 比赛卡片 */
         .competition-card {
             background: #f8f9fa;
             border-radius: 14px;
@@ -158,7 +95,7 @@
             color: #667eea;
         }
 
-        /* ===== 图片画廊 ===== */
+        /* 图片画廊 */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -178,7 +115,7 @@
             box-shadow: 0 6px 18px rgba(0,0,0,0.2);
         }
 
-        /* ===== PDF 链接 ===== */
+        /* PDF链接 */
         .pdf-links {
             margin-top: 12px;
             display: flex;
@@ -204,7 +141,7 @@
             color: white;
         }
 
-        /* ===== Lightbox ===== */
+        /* Lightbox */
         .lightbox {
             display: none;
             position: fixed;
@@ -261,7 +198,7 @@
             right: 20px;
         }
 
-        /* ===== 动态时间线 ===== */
+        /* 时间线 */
         .timeline-item {
             position: relative;
             padding-left: 30px;
@@ -299,41 +236,8 @@
             color: #666;
             line-height: 1.7;
         }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-        .empty-state h3 {
-            font-size: 1.5em;
-            margin-bottom: 15px;
-            color: #667eea;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 40px;
-            opacity: 0.8;
-        }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            .content {
-                padding: 20px;
-            }
             .tabs {
                 flex-direction: column;
             }
@@ -348,22 +252,36 @@
             }
         }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="small-header">
             <h1>🏆 个人经历</h1>
             <p>成长轨迹与荣誉时刻</p>
         </header>
         
         <nav>
-            <ul>
-                <li><a href="index-static.html">🏠 首页</a></li>
-                <li><a href="about.html">📝 简介</a></li>
-                <li><a href="projects.html">🚀 项目</a></li>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
-                <li><a href="ideas.html">💡 个人想法</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
         
@@ -373,11 +291,49 @@
                 <button class="tab" onclick="showSection('updates')">📢 动态更新</button>
             </div>
             
-            <!-- ===== 比赛经历 ===== -->
-            <div id="awards" class="section active">
-                <h2>🏅 比赛经历</h2>
+            <!-- 比赛经历 -->
+            <div id="awards" class="section-tab active">
+                <h2 class="bordered">🏅 比赛经历</h2>
 
-                <!-- 达索设计师大赛 -->
+                <!-- 成就概览 -->
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:15px;margin-bottom:30px">
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #667eea">
+                        <div style="font-size:1.8em;font-weight:800;color:#667eea">3</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">比赛经历</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #28a745">
+                        <div style="font-size:1.8em;font-weight:800;color:#28a745">1</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">获奖</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #fd7e14">
+                        <div style="font-size:1.8em;font-weight:800;color:#fd7e14">2</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">入围/参赛</div>
+                    </div>
+                    <div style="background:#f8f9fa;border-radius:10px;padding:18px;text-align:center;border-left:4px solid #e83e8c">
+                        <div style="font-size:1.8em;font-weight:800;color:#e83e8c">6</div>
+                        <div style="font-size:0.85em;color:#888;margin-top:4px">动态更新</div>
+                    </div>
+                </div>
+
+                <div class="competition-card">
+                    <h3>26届中国机器人大赛 · 舞蹈机器人</h3>
+                    <span class="level">🏆 校内赛获奖</span>
+                    <div class="meta">📅 2026 年 · 中国自动化学会</div>
+                    <div class="desc">
+                        <p>中国机器人大赛（CRR）是国内最具影响力的机器人竞赛之一，由中国自动化学会主办。舞蹈机器人赛项要求参赛队伍设计并制作能够完成舞蹈表演的机器人，综合考察机械结构设计、运动控制算法、创意编排等多方面能力。</p>
+                        <br>
+                        <p><strong>主要收获：</strong></p>
+                        <ul>
+                            <li>在校内赛第一轮中获奖，获得晋级资格</li>
+                            <li>学习机器人运动控制与步态规划</li>
+                            <li>提升团队协作与项目时间管理能力</li>
+                        </ul>
+                    </div>
+                    <div class="pdf-links">
+                        <a href="photo/competitions/dance-robot/关于公布2026中国机器人大赛校内赛第一轮获奖名单公示.pdf" class="pdf-link" target="_blank">📄 查看获奖名单</a>
+                    </div>
+                </div>
+
                 <div class="competition-card">
                     <h3>25届达索设计师大赛</h3>
                     <span class="level">🏆 参赛经历</span>
@@ -399,7 +355,6 @@
                     </div>
                 </div>
 
-                <!-- 省工科3D赛道 -->
                 <div class="competition-card">
                     <h3>25届广东省工科大学生实验综合技能竞赛 · 3D赛道</h3>
                     <span class="level">🏆 校内选拔入围</span>
@@ -421,13 +376,28 @@
                 </div>
             </div>
             
-            <!-- ===== 动态更新 ===== -->
-            <div id="updates" class="section">
-                <h2>📢 最新动态</h2>
+            <!-- 动态更新 -->
+            <div id="updates" class="section-tab">
+                <h2 class="bordered">📢 最新动态</h2>
+                <div class="timeline-item">
+                    <h3>🖥️ 成功上线开发板桌面系统</h3>
+                    <div class="date">📅 2026 年 7 月</div>
+                    <p>成功在开发板上配置并上线桌面系统，实现了开发板的图形化操作环境，为后续嵌入式开发和智能体部署奠定了坚实基础。</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>🤖 舞蹈机器人校内赛获奖</h3>
+                    <div class="date">📅 2026 年 7 月</div>
+                    <p>参加2026中国机器人大赛舞蹈机器人赛项，在校内赛第一轮中获奖，获得晋级资格。学习机器人运动控制与步态规划，提升团队协作能力。</p>
+                </div>
                 <div class="timeline-item">
                     <h3>🎉 个人网站全新上线</h3>
                     <div class="date">📅 2026 年 7 月</div>
                     <p>我的个人网站正式上线！基于 GitHub Pages 构建，展示我的项目、比赛经历与创新想法。这是我在互联网上的第一个个人空间，后续会持续更新内容。</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>🧠 在78块的Linux开发板上安装智能体</h3>
+                    <div class="date">📅 2026 年 4 月</div>
+                    <p>成功在仅78元的Linux开发板上完成智能体安装与配置，验证了低成本硬件运行AI智能体的可行性，为嵌入式AI应用探索了新方向。</p>
                 </div>
                 <div class="timeline-item">
                     <h3>📋 参加达索设计师大赛</h3>
@@ -445,11 +415,23 @@
         </div>
         
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
 
-    <!-- ===== Lightbox ===== -->
+    <!-- Lightbox -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close" onclick="closeLightbox()">&times;</span>
         <span class="nav-btn prev" onclick="prevImage(event)">‹</span>
@@ -458,28 +440,23 @@
     </div>
 
     <script>
-        // ===== 标签切换 =====
         function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.section-tab').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
             event.target.classList.add('active');
         }
 
-        // ===== Lightbox 图片预览 =====
         let currentImages = [];
         let currentIndex = 0;
 
         function openLightbox(img) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
-            
-            // 收集当前比赛卡片的全部图片
             const gallery = img.closest('.competition-card').querySelector('.gallery');
             const images = gallery.querySelectorAll('img');
             currentImages = Array.from(images).map(i => i.src);
             currentIndex = currentImages.indexOf(img.src);
-            
             lightboxImg.src = img.src;
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
@@ -502,13 +479,40 @@
             document.getElementById('lightbox-img').src = currentImages[currentIndex];
         }
 
-        // 键盘导航
         document.addEventListener('keydown', function(e) {
             if (!document.getElementById('lightbox').classList.contains('active')) return;
             if (e.key === 'Escape') closeLightbox();
             if (e.key === 'ArrowLeft') prevImage(e);
             if (e.key === 'ArrowRight') nextImage(e);
         });
+    </script>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navMenu");
+            const btn = document.querySelector(".hamburger");
+            menu.classList.toggle("open");
+            btn.classList.toggle("active");
+        }
+        window.addEventListener("scroll", function() {
+            const btn = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                btn.classList.add("visible");
+            } else {
+                btn.classList.remove("visible");
+            }
+        });
+        (function() {
+            const key = "myweb_visitor_count";
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById("visitCount").textContent = count;
+        })();
     </script>
 </body>
 </html>

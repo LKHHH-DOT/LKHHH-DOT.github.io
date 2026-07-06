@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="全站搜索 — 搜索小熙个人主页的所有内容。">
+    <title>搜索 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .search-box {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 14px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1em;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .search-box input:focus {
+            border-color: #667eea;
+        }
+        .search-box button {
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.05em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .search-box button:hover {
+            transform: translateY(-2px);
+        }
+
+        .search-hints {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .search-hint {
+            padding: 6px 14px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.85em;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .search-hint:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .search-stats {
+            font-size: 0.9em;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .search-result {
+            padding: 18px 22px;
+            margin-bottom: 12px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s;
+        }
+        .search-result:hover {
+            transform: translateX(4px);
+        }
+        .search-result .sr-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 6px;
+        }
+        .search-result .sr-title a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        .search-result .sr-title a:hover {
+            text-decoration: underline;
+        }
+        .search-result .sr-meta {
+            font-size: 0.82em;
+            color: #aaa;
+            margin-bottom: 8px;
+        }
+        .search-result .sr-snippet {
+            font-size: 0.9em;
+            color: #666;
+            line-height: 1.6;
+        }
+        .search-result .sr-snippet mark {
+            background: #fff3cd;
+            padding: 1px 3px;
+            border-radius: 2px;
+        }
+
+        .search-empty {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+        .search-empty h3 {
+            font-size: 1.5em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .search-box {
+                flex-direction: column;
+            }
+            .search-box button {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="small-header">
+            <h1>🔍 全站搜索</h1>
+            <p>搜索所有页面内容</p>
+        </header>
+
+        <nav>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="about.html">📝 关于</a></li>
+            </ul>
+        </nav>
+
+        <div class="content">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="输入关键词搜索..." autofocus>
+                <button onclick="doSearch()">🔍 搜索</button>
+            </div>
+
+            <div class="search-hints">
+                <span class="search-hint" onclick="quickSearch(this)">PID 控制</span>
+                <span class="search-hint" onclick="quickSearch(this)">仿生智慧</span>
+                <span class="search-hint" onclick="quickSearch(this)">舞蹈机器人</span>
+                <span class="search-hint" onclick="quickSearch(this)">达索</span>
+                <span class="search-hint" onclick="quickSearch(this)">VNC</span>
+                <span class="search-hint" onclick="quickSearch(this)">CTM</span>
+            </div>
+
+            <div id="searchResults">
+                <div class="search-empty">
+                    <h3>🔍 输入关键词开始搜索</h3>
+                    <p>支持搜索项目、想法、经历、指南等所有内容</p>
+                </div>
+            </div>
+
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+        </footer>
+    </div>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // ===== 搜索索引 =====
+        const searchIndex = [
+            // 首页
+            { title: "首页", url: "index.html", content: "小熙的个人主页 智能制造工程 创新 探索 项目系列 比赛经历 创新想法 页面数量 最新动态 仿生智慧 PID 控制 机器人 开发板 桌面系统", meta: "首页 · 概览" },
+            // 关于
+            { title: "关于我", url: "about.html", content: "小熙 智能制造工程 学生 编程 硬件 创新 学习 成长", meta: "关于 · 个人简介" },
+            // 项目
+            { title: "项目展示", url: "projects.html", content: "项目展示 智能PID控制器 智能问卷 仿生智慧 BI VNC 远程桌面", meta: "项目 · 系列概览" },
+            // 个人经历
+            { title: "比赛经历", url: "experience.html", content: "中国机器人大赛 舞蹈机器人 校内赛获奖 达索设计师大赛 CATIA 三维设计 省工科3D赛道 校内选拔", meta: "经历 · 比赛获奖" },
+            { title: "最新动态", url: "experience.html", content: "开发板桌面系统 舞蹈机器人获奖 个人网站上线 78元开发板 智能体安装", meta: "经历 · 动态更新" },
+            // PID 控制系列
+            { title: "智能PID控制器系列", url: "series-pid-control.html", content: "PID 控制 智能PID 模糊控制 神经网络 自动控制 电机控制 嵌入式", meta: "系列 · PID 控制" },
+            // 智能问卷系列
+            { title: "智能问卷系列", url: "series-smart-questionnaire.html", content: "智能问卷 AI审核 数据分析 问卷创建 自动评分", meta: "系列 · 智能问卷" },
+            // 仿生智慧系列
+            { title: "仿生智慧 BI 系列", url: "series-bi.html", content: "仿生智慧 BI 超越Transformer 新范式 生物神经 元认知 特化器官 睡眠周期 不知道就问 知道就做 累了就睡", meta: "系列 · 仿生智慧" },
+            // VNC 指南
+            { title: "VNC 远程桌面配置指南", url: "vnc-guide.html", content: "VNC 远程桌面 Ubuntu x11vnc Tailscale 手机控制 端口冲突 保姆级教程 远程控制", meta: "指南 · VNC 配置" },
+            // 想法库
+            { title: "CTM 连续思维机 边缘落地挑战", url: "ideas.html", content: "CTM 连续思维机 控制理论 硬件极限 边缘落地 内存墙 实时性 反馈回路 隐空间 分层控制", meta: "想法 · AI 架构" },
+            { title: "仿生智慧 BI 新范式", url: "ideas.html", content: "仿生智慧 BI 超越Transformer 元认知 创造力 自我意识 灵魂躯干 特化器官协作 全并行处理", meta: "想法 · AI 架构" },
+            { title: "边缘端轻量级 MQTT 消息代理", url: "ideas.html", content: "MQTT 消息代理 边缘端 MCU 轻量级 QoS 保留消息 遗嘱消息", meta: "想法 · IoT 方案" },
+            { title: "基于 Tailscale 的零配置远程开发环境", url: "ideas.html", content: "Tailscale 远程开发 VNC SSH 文件共享 零配置 虚拟组网", meta: "想法 · 效率工具" },
+            { title: "双系统 PID 控制器", url: "ideas.html", content: "双系统 PID 控制器 智能控制 传统控制 确定性控制 自适应 低频高维 微秒级响应", meta: "想法 · 硬件创意" },
+            { title: "AI 辅助嵌入式固件自动调参", url: "ideas.html", content: "强化学习 嵌入式 PID 自动调参 在线优化 离线仿真 AI调参", meta: "想法 · AI 架构" },
+            { title: "低功耗 LoRa 传感器网络", url: "ideas.html", content: "LoRa 传感器网络 ESP32 低功耗 温湿度 气压 光照 续航6个月", meta: "想法 · IoT 方案" },
+            { title: "命令行快速笔记工具", url: "ideas.html", content: "命令行 笔记工具 memo 标签 搜索 Markdown SQLite 终端", meta: "想法 · 效率工具" },
+            { title: "RISC-V 开发板 AI 推理加速", url: "ideas.html", content: "RISC-V LicheeRV Nano AI推理 向量指令集 量化 轻量级推理引擎", meta: "想法 · 硬件创意" }
+        ];
+
+        function doSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const resultsDiv = document.getElementById('searchResults');
+
+            if (!query) {
+                resultsDiv.innerHTML = '<div class="search-empty"><h3>🔍 输入关键词开始搜索</h3><p>支持搜索项目、想法、经历、指南等所有内容</p></div>';
+                return;
+            }
+
+            // 分词搜索
+            const keywords = query.split(/\s+/).filter(k => k.length > 0);
+
+            const results = searchIndex.filter(item => {
+                const content = item.content.toLowerCase();
+                return keywords.every(k => content.includes(k));
+            });
+
+            if (results.length === 0) {
+                resultsDiv.innerHTML = `
+                    <div class="search-empty">
+                        <h3>😕 未找到相关内容</h3>
+                        <p>试试其他关键词，或者使用热门标签搜索</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 高亮关键词
+            function highlight(text) {
+                let result = text;
+                keywords.forEach(k => {
+                    const regex = new RegExp('(' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                    result = result.replace(regex, '<mark>$1</mark>');
+                });
+                return result;
+            }
+
+            resultsDiv.innerHTML = `
+                <div class="search-stats">找到 ${results.length} 个结果</div>
+                ${results.map(r => `
+                    <div class="search-result">
+                        <div class="sr-title"><a href="${r.url}">${highlight(r.title)}</a></div>
+                        <div class="sr-meta">${r.meta}</div>
+                        <div class="sr-snippet">${highlight(r.content.substring(0, 150))}</div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        function quickSearch(el) {
+            document.getElementById('searchInput').value = el.textContent;
+            doSearch();
+        }
+
+        // 回车搜索
+        document.getElementById('searchInput').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') doSearch();
+        });
+
+        // 自动从 URL 参数读取搜索词
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const q = params.get('q');
+            if (q) {
+                document.getElementById('searchInput').value = q;
+                doSearch();
+            }
+        });
+    </script>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("navMenu");
+            const btn = document.querySelector(".hamburger");
+            menu.classList.toggle("open");
+            btn.classList.toggle("active");
+        }
+        window.addEventListener("scroll", function() {
+            const btn = document.getElementById("backToTop");
+            if (window.scrollY > 300) {
+                btn.classList.add("visible");
+            } else {
+                btn.classList.remove("visible");
+            }
+        });
+        (function() {
+            const key = "myweb_visitor_count";
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById("visitCount").textContent = count;
+        })();
+    </script>
+</body>
+</html>

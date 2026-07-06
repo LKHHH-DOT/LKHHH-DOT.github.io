@@ -3,77 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="小熙的个人简介 — 智能制造工程专业本科在读，技能专长与联系方式。">
     <title>个人简介 - 小熙</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-        }
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-        }
-        nav {
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
-        nav ul li a {
-            display: inline-block;
-            padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.3s;
-        }
-        nav ul li a:hover {
-            transform: translateY(-3px);
-        }
-        .content {
-            background: white;
-            border-radius: 10px;
-            padding: 40px;
-            margin-top: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
         .section {
             margin-bottom: 30px;
-        }
-        .section h2 {
-            color: #667eea;
-            border-left: 4px solid #667eea;
-            padding-left: 15px;
-            margin-bottom: 20px;
-            font-size: 1.8em;
         }
         .section p, .section ul {
             font-size: 1.1em;
@@ -87,70 +24,43 @@
         .section li {
             margin-bottom: 10px;
         }
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .info-card {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-            border-left: 4px solid #667eea;
-        }
-        .info-card h3 {
-            color: #667eea;
-            margin-bottom: 10px;
-        }
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            margin-top: 40px;
-            opacity: 0.8;
-        }
-        .back-link {
-            display: inline-block;
-            margin-top: 20px;
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .back-link:hover {
-            text-decoration: underline;
-        }
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-            .content {
-                padding: 20px;
-            }
-        }
     </style>
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
-        <header>
+        <header class="small-header">
             <h1>📝 个人简介</h1>
             <p>关于我</p>
         </header>
         
         <nav>
-            <ul>
-                <li><a href="index-static.html">🏠 首页</a></li>
-                <li><a href="about.html">📝 简介</a></li>
-                <li><a href="projects.html">🚀 项目</a></li>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
-                <li><a href="ideas.html">💡 个人想法</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="about.html">📝 关于</a></li>
             </ul>
         </nav>
         
         <div class="content">
             <div class="section">
-                <h2>👤 基本信息</h2>
+                <h2 class="bordered">👤 基本信息</h2>
                 <div class="info-grid">
                     <div class="info-card">
                         <h3>姓名</h3>
@@ -172,7 +82,7 @@
             </div>
             
             <div class="section">
-                <h2>🎓 教育背景</h2>
+                <h2 class="bordered">🎓 教育背景</h2>
                 <p><strong>专业：</strong>智能制造工程</p>
                 <p><strong>主修课程：</strong></p>
                 <ul>
@@ -186,7 +96,7 @@
             </div>
             
             <div class="section">
-                <h2>💻 技能专长</h2>
+                <h2 class="bordered">💻 技能专长</h2>
                 <ul>
                     <li><strong>编程语言：</strong>Python, C/C++, JavaScript</li>
                     <li><strong>开发工具：</strong>Git, Docker, Linux</li>
@@ -196,7 +106,7 @@
             </div>
             
             <div class="section">
-                <h2>🎯 兴趣爱好</h2>
+                <h2 class="bordered">🎯 兴趣爱好</h2>
                 <ul>
                     <li>技术创新与研发</li>
                     <li>开源项目贡献</li>
@@ -206,17 +116,62 @@
             </div>
             
             <div class="section">
-                <h2>📧 联系方式</h2>
+                <h2 class="bordered">📧 联系方式</h2>
                 <p>🔗 <strong>GitHub：</strong><a href="https://github.com/LKHHH-DOT" target="_blank" style="color: #667eea; text-decoration: none;">LKHHH-DOT</a></p>
                 <br>
                 <p>📧 <strong>邮箱：</strong><a href="mailto:1452520934@qq.com" style="color: #667eea; text-decoration: none;">1452520934@qq.com</a></p>
-                <a href="index-static.html" class="back-link">← 返回首页</a>
+                <a href="index.html" class="back-link">← 返回首页</a>
             </div>
         </div>
         
         <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 汉堡菜单
+        function toggleMenu() {
+            const menu = document.getElementById('navMenu');
+            const btn = document.querySelector('.hamburger');
+            menu.classList.toggle('open');
+            btn.classList.toggle('active');
+        }
+
+        // 回到顶部按钮
+        window.addEventListener('scroll', function() {
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        });
+
+        // 访客计数器（基于 localStorage 的简单实现）
+        (function() {
+            const key = 'myweb_visitor_count';
+            let count = localStorage.getItem(key);
+            if (!count) {
+                count = Math.floor(Math.random() * 100) + 50;
+                localStorage.setItem(key, count);
+            }
+            document.getElementById('visitCount').textContent = count;
+        })();
+    </script>
 </body>
 </html>
