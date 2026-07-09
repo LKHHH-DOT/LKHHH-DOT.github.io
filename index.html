@@ -7,48 +7,67 @@
     <meta name="keywords" content="小熙,智能制造,个人主页,机器人,PID,仿生智慧">
     <meta name="author" content="小熙">
     <title>小熙的个人主页</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
     <link rel="stylesheet" href="style.css">
     <style>
         /* ===== 首页专属样式 ===== */
+        /* 卡片容器 - 借鉴简历纯白质感 */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            padding: 30px;
+            margin-bottom: 24px;
+            transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+            border: 1px solid var(--card-border);
+        }
+        .content-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 48px rgba(31, 38, 135, 0.12);
+        }
 
-        /* Hero 区域 */
-        .hero {
+        /* Hero 区域 - 卡片化 */
+        .hero-card {
+            background: var(--accent-gradient);
+            border-radius: 20px;
+            padding: 60px 40px 50px;
             text-align: center;
-            padding: 80px 20px 60px;
             color: white;
             position: relative;
             overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(108, 99, 255, 0.25);
         }
-        .hero::before {
+        .hero-card::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.08) 0%, transparent 60%);
+            background: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 60%);
             animation: heroGlow 8s ease-in-out infinite alternate;
         }
         @keyframes heroGlow {
             0% { transform: translate(0, 0); }
             100% { transform: translate(-10%, -5%); }
         }
-        .hero h1 {
-            font-size: 3.2em;
+        .hero-card h1 {
+            font-size: 3em;
             margin-bottom: 12px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
             position: relative;
         }
-        .hero .subtitle {
-            font-size: 1.3em;
+        .hero-card .subtitle {
+            font-size: 1.2em;
             opacity: 0.9;
             position: relative;
+            font-weight: 500;
         }
-        .hero .tagline {
-            margin-top: 20px;
-            font-size: 1.05em;
+        .hero-card .tagline {
+            margin-top: 16px;
+            font-size: 0.95em;
             opacity: 0.8;
             position: relative;
             max-width: 600px;
@@ -57,39 +76,40 @@
             line-height: 1.8;
         }
 
-        /* 快速统计 */
+        /* 快速统计 - 卡片网格 */
         .quick-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-top: -30px;
-            position: relative;
-            z-index: 2;
-            padding: 0 20px;
+            gap: 16px;
+            margin-bottom: 30px;
         }
         .stat-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px 15px;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 14px;
+            padding: 22px 15px;
             text-align: center;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: transform 0.3s;
+            box-shadow: 0 4px 20px var(--shadow-sm);
+            transition: all 0.3s;
+            border: 1px solid var(--card-border);
         }
         .stat-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(108,99,255,0.15);
+            border-color: #6c63ff44;
         }
         .stat-card .stat-icon {
             font-size: 1.8em;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .stat-card .stat-number {
-            font-size: 1.6em;
+            font-size: 1.8em;
             font-weight: 800;
-            color: #667eea;
+            color: var(--accent);
         }
         .stat-card .stat-label {
             font-size: 0.85em;
-            color: #888;
+            color: var(--text-muted);
             margin-top: 4px;
         }
 
@@ -99,23 +119,24 @@
             align-items: center;
             gap: 10px;
             margin-bottom: 20px;
-            font-size: 1.5em;
-            color: #667eea;
-            border-left: 4px solid #667eea;
+            font-size: 1.4em;
+            color: var(--accent);
+            border-left: 4px solid var(--accent);
             padding-left: 15px;
         }
         .section-title .more-link {
             margin-left: auto;
             font-size: 0.6em;
             font-weight: normal;
-            color: #999;
+            color: var(--text-muted);
             text-decoration: none;
+            transition: color 0.2s;
         }
         .section-title .more-link:hover {
-            color: #667eea;
+            color: var(--accent);
         }
 
-        /* 最新动态时间线（首页精简版） */
+        /* 最新动态时间线 */
         .home-timeline {
             display: grid;
             gap: 12px;
@@ -125,13 +146,14 @@
             align-items: flex-start;
             gap: 14px;
             padding: 14px 18px;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 10px;
-            border-left: 3px solid #667eea;
-            transition: transform 0.2s;
+            border-left: 3px solid var(--accent);
+            transition: all 0.2s;
         }
         .home-timeline-item:hover {
             transform: translateX(4px);
+            background: var(--hover-bg);
         }
         .home-timeline-item .tl-icon {
             font-size: 1.3em;
@@ -141,7 +163,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: white;
+            background: var(--card-bg);
             border-radius: 8px;
         }
         .home-timeline-item .tl-content {
@@ -150,12 +172,12 @@
         }
         .home-timeline-item .tl-title {
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             font-size: 0.95em;
         }
         .home-timeline-item .tl-date {
             font-size: 0.8em;
-            color: #aaa;
+            color: var(--text-light);
             margin-top: 3px;
         }
 
@@ -166,43 +188,43 @@
             gap: 18px;
         }
         .featured-idea {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 12px;
             padding: 22px;
-            border-left: 4px solid #667eea;
-            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
         }
         .featured-idea:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 25px rgba(108,99,255,0.12);
         }
         .featured-idea .fi-category {
             display: inline-block;
-            padding: 3px 10px;
+            padding: 3px 12px;
             border-radius: 12px;
             font-size: 0.75em;
             font-weight: 600;
             margin-bottom: 10px;
-            background: #667eea20;
-            color: #667eea;
+            background: var(--accent)20;
+            color: var(--accent);
         }
         .featured-idea .fi-title {
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             font-size: 1em;
             line-height: 1.5;
             margin-bottom: 8px;
         }
         .featured-idea .fi-summary {
             font-size: 0.88em;
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
         .featured-idea .fi-link {
             display: inline-block;
             margin-top: 10px;
             font-size: 0.85em;
-            color: #667eea;
+            color: var(--accent);
             font-weight: 600;
             text-decoration: none;
         }
@@ -210,23 +232,25 @@
             text-decoration: underline;
         }
 
-        /* 成就墙 */
+        /* 比赛成就墙 - 网格布局 */
         .achievement-wall {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 15px;
+            margin-top: 5px;
         }
         .achievement-card {
-            background: #f8f9fa;
+            background: var(--card-bg);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
-            border: 2px solid transparent;
+            border: 2px solid var(--border-lighter);
             transition: all 0.3s;
         }
         .achievement-card:hover {
-            border-color: #667eea;
+            border-color: var(--accent);
             transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108,99,255,0.1);
         }
         .achievement-card .ach-icon {
             font-size: 2.2em;
@@ -234,17 +258,17 @@
         }
         .achievement-card .ach-title {
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             font-size: 0.95em;
             margin-bottom: 6px;
         }
         .achievement-card .ach-desc {
             font-size: 0.82em;
-            color: #888;
+            color: var(--text-muted);
             line-height: 1.5;
         }
 
-        /* 技能展示 */
+        /* 技能标签 - 借鉴简历风格 */
         .skills-showcase {
             display: flex;
             flex-wrap: wrap;
@@ -255,18 +279,34 @@
             align-items: center;
             gap: 6px;
             padding: 8px 18px;
-            background: #f8f9fa;
-            border: 1px solid #e0e0e0;
-            border-radius: 25px;
+            background: var(--tag-bg);
+            border: none;
+            border-radius: 20px;
             font-size: 0.9em;
-            color: #555;
-            transition: all 0.2s;
+            color: var(--tag-color);
+            cursor: default;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--hover-bg), transparent);
+            transition: left 0.6s;
+        }
+        .skill-badge:hover::before {
+            left: 100%;
         }
         .skill-badge:hover {
-            background: #667eea;
+            background: var(--accent);
             color: white;
-            border-color: #667eea;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(108,99,255,0.35);
         }
 
         /* 快捷入口 */
@@ -278,20 +318,20 @@
         .quick-link-card {
             display: block;
             padding: 18px 14px;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 10px;
             text-align: center;
             text-decoration: none;
-            color: #333;
-            border: 1px solid #eee;
+            color: var(--text-primary);
+            border: 1px solid var(--border-lighter);
             transition: all 0.3s;
         }
         .quick-link-card:hover {
-            background: #667eea;
+            background: var(--accent);
             color: white;
-            border-color: #667eea;
+            border-color: var(--accent);
             transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(102,126,234,0.3);
+            box-shadow: 0 6px 15px rgba(108,99,255,0.3);
         }
         .quick-link-card .ql-icon {
             font-size: 1.5em;
@@ -302,62 +342,87 @@
             font-weight: 600;
         }
 
+        /* 导航适配 - 在卡片布局下 */
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 导航栏容器卡片化 */
+        nav.grid-nav {
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            padding: 20px;
+            margin-bottom: 24px;
+            border: 1px solid var(--card-border);
+        }
+
         /* 响应式 */
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.2em; }
-            .hero { padding: 50px 15px 40px; }
-            .quick-stats { grid-template-columns: repeat(2, 1fr); margin-top: -20px; }
+            .hero-card { padding: 40px 20px 35px; }
+            .hero-card h1 { font-size: 2.2em; }
+            .quick-stats { grid-template-columns: repeat(2, 1fr); }
             .featured-ideas { grid-template-columns: 1fr; }
             .achievement-wall { grid-template-columns: repeat(2, 1fr); }
             .quick-links { grid-template-columns: repeat(2, 1fr); }
+            .content-card { padding: 20px; }
         }
     </style>
-</head>
+
+    <meta property="og:title" content="小熙的个人主页">
+    <meta property="og:description" content="智能制造工程专业学生，记录学习历程、项目实践、比赛经历与创新思考。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazaxa.cn">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="小熙的个人主页">
+    <meta name="twitter:description" content="智能制造工程专业学生，记录学习历程、项目实践、比赛经历与创新思考。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,智能制造,个人主页,机器人,PID,仿生智慧">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "小熙的个人主页",
+  "description": "智能制造工程专业学生，记录学习历程、项目实践、比赛经历与创新思考。",
+  "url": "https://lazaxa.cn",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  }
+}
+    </script>
+    <style>
+        /* 暗色模式过渡 */
+        .content-card,
+        .stat-card,
+        .home-timeline-item,
+        .featured-idea,
+        .achievement-card,
+        .skill-badge,
+        .quick-link-card,
+        .home-timeline-item .tl-icon {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+    </style>
+    </head>
 <body>
-    <div class="container">
-        <!-- Hero 区域 -->
-        <div class="hero">
-            <h1>👋 你好，我是小熙</h1>
-            <p class="subtitle">智能制造工程专业 · 创新者 · 探索者</p>
-            <p class="tagline">
-                热衷于探索技术与创新的结合点，记录学习历程、项目实践与创新思考。
-                这里是我在互联网上的个人空间。
-            </p>
-        </div>
-
-        <!-- 快速统计 -->
-        <div class="quick-stats">
-            <div class="stat-card">
-                <div class="stat-icon">🚀</div>
-                <div class="stat-number">3</div>
-                <div class="stat-label">项目系列</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">🏆</div>
-                <div class="stat-number">3</div>
-                <div class="stat-label">比赛经历</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">💡</div>
-                <div class="stat-number">8</div>
-                <div class="stat-label">创新想法</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">📄</div>
-                <div class="stat-number">9</div>
-                <div class="stat-label">页面数量</div>
-            </div>
-        </div>
-
-        <!-- 导航 -->
-        <nav class="grid-nav">
+    <!-- 渐变星空背景 -->
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
             <ul id="navMenu">
-                <li><a href="index.html">🏠 首页</a></li>
+                <li><a href="index.html" active>🏠 首页</a></li>
                 <li class="nav-item">
                     <a href="projects.html">🚀 项目</a>
                     <div class="dropdown">
@@ -367,17 +432,82 @@
                         <a href="vnc-guide.html">🔧 VNC 教程</a>
                     </div>
                 </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
                 <li><a href="ideas.html">💡 想法库</a></li>
                 <li><a href="guestbook.html">💬 留言</a></li>
                 <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
                 <li><a href="about.html">📝 关于</a></li>
             </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
         </nav>
+    <div class="container page-fade">
+        <!-- Hero 卡片 -->
+        <div class="hero-card">
+            <h1>👋 你好，我是小熙</h1>
+            <p class="subtitle">智能制造工程专业 · 创新者 · 探索者</p>
+            <p class="tagline">
+                热衷于探索技术与创新的结合点，记录学习历程、项目实践与创新思考。
+                这里是我在互联网上的个人空间。
+            </p>
+        </div>
 
-        <div class="content">
-            <!-- 最新动态 -->
-            <div>
+        <!-- 快速统计 -->
+        <div class="quick-stats" id="homeStats">
+            <div class="stat-card">
+                <div class="stat-icon">🚀</div>
+                <div class="stat-number" id="statProjects">--</div>
+                <div class="stat-label">项目系列</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">🏆</div>
+                <div class="stat-number" id="statExperiences">--</div>
+                <div class="stat-label">比赛经历</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">💡</div>
+                <div class="stat-number" id="statIdeas">--</div>
+                <div class="stat-label">创新想法</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">📄</div>
+                <div class="stat-number" id="statPages">--</div>
+                <div class="stat-label">页面数量</div>
+            </div>
+        </div>
+        <script>
+        // ===== 首页统计自动计算 =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // 项目系列：统计 series- 开头的页面
+            var seriesPages = ['series-pid-control.html', 'series-smart-questionnaire.html', 'series-bi.html'];
+            document.getElementById('statProjects').textContent = seriesPages.length;
+
+            // 比赛经历：统计 experience.html 中的比赛条目
+            // 静态已知数量，后续可优化为动态抓取
+            document.getElementById('statExperiences').textContent = '3';
+
+            // 创新想法：统计 ideas.html 中的想法数
+            // 静态已知数量
+            document.getElementById('statIdeas').textContent = '8';
+
+            // 页面数量：统计根目录所有 .html 文件（排除子目录）
+            var allPages = [
+                'index.html','about.html','projects.html','experience.html',
+                'ideas.html','search.html','guestbook.html','links.html',
+                'ai-chat.html','navigation.html','secret-download.html',
+                'vnc-guide.html','404.html',
+                'series-pid-control.html','series-smart-questionnaire.html','series-bi.html'
+            ];
+            document.getElementById('statPages').textContent = allPages.length;
+        });
+        </script>
+
+        <!-- 导航 --><div class="content">
+            <!-- 最新动态 - 卡片包裹 -->
+            <div class="content-card">
                 <div class="section-title">
                     📢 最新动态
                     <a href="experience.html" class="more-link">查看全部 →</a>
@@ -414,10 +544,8 @@
                 </div>
             </div>
 
-            <br>
-
-            <!-- 精选想法 -->
-            <div>
+            <!-- 精选想法 - 卡片包裹 -->
+            <div class="content-card">
                 <div class="section-title">
                     💡 精选想法
                     <a href="ideas.html" class="more-link">查看全部想法 →</a>
@@ -438,10 +566,8 @@
                 </div>
             </div>
 
-            <br>
-
-            <!-- 比赛成就 -->
-            <div>
+            <!-- 比赛成就 - 卡片包裹 -->
+            <div class="content-card">
                 <div class="section-title">
                     🏆 比赛成就
                     <a href="experience.html" class="more-link">查看全部经历 →</a>
@@ -470,10 +596,8 @@
                 </div>
             </div>
 
-            <br>
-
-            <!-- 技能标签 -->
-            <div>
+            <!-- 技能标签 - 卡片包裹 -->
+            <div class="content-card">
                 <div class="section-title">🎯 技能专长</div>
                 <div class="skills-showcase">
                     <span class="skill-badge">🐍 Python</span>
@@ -491,10 +615,8 @@
                 </div>
             </div>
 
-            <br>
-
-            <!-- 快捷入口 -->
-            <div>
+            <!-- 快捷入口 - 卡片包裹 -->
+            <div class="content-card">
                 <div class="section-title">🔗 快速访问</div>
                 <div class="quick-links">
                     <a href="about.html" class="quick-link-card">
@@ -529,21 +651,26 @@
                         <div class="ql-icon">🔧</div>
                         <div class="ql-label">VNC 教程</div>
                     </a>
-                    <a href="secret-download.html" class="quick-link-card">
-                        <div class="ql-icon">🤫</div>
-                        <div class="ql-label">暗号下载</div>
-                    </a>
                 </div>
             </div>
         </div>
 
-        <!-- 管理登录彩蛋入口（快速连点5下右下角） -->
+        <!-- 管理登录彩蛋入口 -->
         <div id="adminEasterEgg" style="position:fixed;bottom:20px;right:20px;width:30px;height:30px;opacity:0;cursor:pointer;z-index:998;border-radius:50%" onclick="adminEggClick()" title=""></div>
-        <div id="adminEggPopup" style="display:none;position:fixed;bottom:60px;right:20px;background:white;border-radius:12px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:999;text-align:center;min-width:200px;border:2px solid #667eea">
+        <div id="adminEggPopup" style="display:none;position:fixed;bottom:60px;right:20px;background:var(--card-bg);border-radius:12px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:999;text-align:center;min-width:200px;border:2px solid var(--accent)">
             <div style="font-size:2em;margin-bottom:8px">🔐</div>
-            <p style="color:#667eea;font-weight:bold;margin-bottom:12px">管理员入口</p>
-            <a href="admin-login.html" style="display:block;padding:10px 20px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border-radius:8px;text-decoration:none;font-weight:bold">前往管理登录 →</a>
-            <button onclick="document.getElementById('adminEggPopup').style.display='none'" style="margin-top:10px;border:none;background:none;color:#999;cursor:pointer;font-size:0.85em">关闭</button>
+            <p style="color:var(--accent);font-weight:bold;margin-bottom:12px">管理员入口</p>
+            <a href="admin-login.html" style="display:block;padding:10px 20px;background:linear-gradient(135deg,#6c63ff,#5a54d9);color:white;border-radius:8px;text-decoration:none;font-weight:bold">前往管理登录 →</a>
+            <button onclick="document.getElementById('adminEggPopup').style.display='none'" style="margin-top:10px;border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:0.85em">关闭</button>
+        </div>
+
+        <!-- 暗号下载彩蛋入口 -->
+        <div id="secretEgg" style="position:fixed;bottom:20px;right:70px;width:30px;height:30px;opacity:0;cursor:pointer;z-index:998;border-radius:50%" onclick="secretEggClick()" title=""></div>
+        <div id="secretEggPopup" style="display:none;position:fixed;bottom:60px;right:70px;background:var(--card-bg);border-radius:12px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,0.3);z-index:999;text-align:center;min-width:200px;border:2px solid #10b981">
+            <div style="font-size:2em;margin-bottom:8px">🤫</div>
+            <p style="color:#10b981;font-weight:bold;margin-bottom:12px">秘密通道</p>
+            <a href="secret-download.html" style="display:block;padding:10px 20px;background:linear-gradient(135deg,#10b981,#059669);color:white;border-radius:8px;text-decoration:none;font-weight:bold">前往暗号下载 →</a>
+            <button onclick="document.getElementById('secretEggPopup').style.display='none'" style="margin-top:10px;border:none;background:none;color:var(--text-muted);cursor:pointer;font-size:0.85em">关闭</button>
         </div>
         <script>
             let adminEggClicks = 0, adminEggTimer = null;
@@ -556,6 +683,16 @@
                     document.getElementById('adminEggPopup').style.display = 'block';
                 }
             }
+            let secretEggClicks = 0, secretEggTimer = null;
+            function secretEggClick() {
+                secretEggClicks++;
+                if (secretEggTimer) clearTimeout(secretEggTimer);
+                secretEggTimer = setTimeout(() => { secretEggClicks = 0; }, 2000);
+                if (secretEggClicks >= 5) {
+                    secretEggClicks = 0;
+                    document.getElementById('secretEggPopup').style.display = 'block';
+                }
+            }
         </script>
 
         <footer>
@@ -563,49 +700,59 @@
                 <a href="index.html">🏠 首页</a>
                 <a href="about.html">📝 关于</a>
                 <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
                 <a href="experience.html">🏆 经历</a>
                 <a href="ideas.html">💡 想法</a>
                 <a href="guestbook.html">💬 留言</a>
                 <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
                 <a href="secret-download.html">🤫 暗号下载</a>
                 <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
             </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
-            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
     <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-    <script>
-        // 汉堡菜单
-        function toggleMenu() {
-            const menu = document.getElementById('navMenu');
-            const btn = document.querySelector('.hamburger');
-            menu.classList.toggle('open');
-            btn.classList.toggle('active');
-        }
 
-        // 回到顶部按钮
-        window.addEventListener('scroll', function() {
-            const btn = document.getElementById('backToTop');
-            if (window.scrollY > 300) {
-                btn.classList.add('visible');
-            } else {
-                btn.classList.remove('visible');
+
+<script src="common.js"></script>
+<script>
+// ===== AI 导航助手 - 浮动聊天气泡（仅首页显示） =====
+(function() {
+    // 加载 Coze SDK（如果还没加载）
+    if (!window.CozeWebSDK) {
+        var s = document.createElement('script');
+        s.src = 'https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js';
+        s.onload = initCozeFloat;
+        document.body.appendChild(s);
+    } else {
+        initCozeFloat();
+    }
+
+    var cozeClient = null;
+
+    function initCozeFloat() {
+        if (cozeClient) return;
+        cozeClient = new CozeWebSDK.WebChatClient({
+            config: {
+                bot_id: '7660455453268115465',
+            },
+            componentProps: {
+                title: '💡 网站导航助手',
+            },
+            auth: {
+                type: 'token',
+                token: 'pat_K2CLRuPUiz2xeOq7ddva2rGwuq1IcA5NpkqGaVE4cQYFMw0lJPbVnGfiNxZArqRR',
+                onRefreshToken: function () {
+                    return 'pat_K2CLRuPUiz2xeOq7ddva2rGwuq1IcA5NpkqGaVE4cQYFMw0lJPbVnGfiNxZArqRR'
+                }
             }
         });
-
-        // 访客计数器
-        (function() {
-            const key = 'myweb_visitor_count';
-            let count = localStorage.getItem(key);
-            if (!count) {
-                count = Math.floor(Math.random() * 100) + 50;
-                localStorage.setItem(key, count);
-            }
-            document.getElementById('visitCount').textContent = count;
-        })();
-    </script>
+    }
+})();
+</script>
 </body>
 </html>

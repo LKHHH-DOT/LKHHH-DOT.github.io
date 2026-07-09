@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 页面不见了 | 小熙的个人主页</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    <style>
+        .page-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .error-404 {
+            text-align: center;
+            padding: 80px 20px;
+        }
+        .error-404 .error-code {
+            font-size: 8em;
+            font-weight: 900;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .error-404 .error-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        .error-404 h2 {
+            font-size: 1.8em;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+        .error-404 p {
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+        }
+        .error-404 .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .error-404 .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+        .error-404 .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        .error-404 .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        .error-404 .btn-secondary {
+            background: #f1f2f6;
+            color: var(--text-primary);
+        }
+        .error-404 .btn-secondary:hover {
+            background: #e0e0e0;
+            transform: translateY(-3px);
+        }
+        .error-404 .fun-fact {
+            margin-top: 40px;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            display: inline-block;
+            border-left: 4px solid var(--accent);
+        }
+        .error-404 .fun-fact span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+        @media (max-width: 768px) {
+            .error-404 .error-code { font-size: 5em; }
+            .error-404 { padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+
+    <nav>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html" active>🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
+                <li><a href="about.html">📝 关于</a></li>
+            </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
+        </nav>
+
+    <div class="container page-fade">
+        <div class="content" style="background: transparent; box-shadow: none; padding: 0;">
+            <div class="error-404">
+                <div class="error-icon">🔭</div>
+                <div class="error-code">404</div>
+                <h2>咦？页面好像走丢了</h2>
+                <p>
+                    你访问的页面可能已被移动、删除，或者地址输入有误。<br>
+                    别担心，回到首页看看有什么有趣的吧！
+                </p>
+                <div class="action-buttons">
+                    <a href="index.html" class="btn btn-primary">🏠 回到首页</a>
+                    <a href="search.html" class="btn btn-secondary">🔍 搜索内容</a>
+                    <a href="projects.html" class="btn btn-secondary">🚀 浏览项目</a>
+                </div>
+                <div class="fun-fact">
+                    💡 你知道吗？这个 404 页面也是我用心设计的哦～
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="index.html">🏠 首页</a>
+            <a href="about.html">📝 关于</a>
+            <a href="projects.html">🚀 项目</a>
+            <a href="live-projects.html">📡 实时</a>
+                <a href="experience.html">🏆 经历</a>
+            <a href="ideas.html">💡 想法</a>
+            <a href="guestbook.html">💬 留言</a>
+            <a href="search.html">🔍 搜索</a>
+            <a href="ai-chat.html">🤖 AI 对话</a>
+            <a href="secret-download.html">🤫 暗号下载</a>
+            <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+        </div>
+        <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+        <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
+    </footer>
+
+    <script>
+    </script>
+<script src="common.js"></script>
+</body>
+</html>

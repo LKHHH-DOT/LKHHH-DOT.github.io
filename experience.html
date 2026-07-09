@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="小熙的个人经历 — 比赛获奖、项目动态与成长轨迹。">
     <title>个人经历 - 小熙</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
     <link rel="stylesheet" href="style.css">
     <style>
         .tabs {
@@ -19,17 +19,17 @@
         }
         .tab {
             padding: 12px 25px;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-size: 1.1em;
             font-weight: bold;
-            color: #666;
+            color: var(--text-secondary);
             transition: all 0.3s;
         }
         .tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             color: white;
         }
         .tab:hover {
@@ -44,7 +44,7 @@
 
         /* 比赛卡片 */
         .competition-card {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 14px;
             padding: 30px;
             margin-bottom: 30px;
@@ -56,7 +56,7 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         .competition-card h3 {
-            color: #667eea;
+            color: var(--accent);
             font-size: 1.5em;
             margin-bottom: 8px;
         }
@@ -71,12 +71,12 @@
             margin-bottom: 12px;
         }
         .competition-card .meta {
-            color: #888;
+            color: var(--text-muted);
             font-size: 0.95em;
             margin-bottom: 12px;
         }
         .competition-card .desc {
-            color: #555;
+            color: var(--text-secondary);
             line-height: 1.8;
             margin-bottom: 18px;
         }
@@ -92,7 +92,7 @@
             content: "✦";
             position: absolute;
             left: 0;
-            color: #667eea;
+            color: var(--accent);
         }
 
         /* 图片画廊 */
@@ -127,10 +127,10 @@
             align-items: center;
             gap: 6px;
             padding: 8px 16px;
-            background: white;
+            background: var(--card-bg);
             border: 2px solid #667eea;
             border-radius: 8px;
-            color: #667eea;
+            color: var(--accent);
             text-decoration: none;
             font-weight: 600;
             font-size: 0.9em;
@@ -222,18 +222,18 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
         .timeline-item h3 {
-            color: #333;
+            color: var(--text-primary);
             font-size: 1.3em;
             margin-bottom: 8px;
         }
         .timeline-item .date {
-            color: #667eea;
+            color: var(--accent);
             font-weight: bold;
             font-size: 0.95em;
             margin-bottom: 10px;
         }
         .timeline-item p {
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.7;
         }
 
@@ -252,15 +252,39 @@
             }
         }
     </style>
-</head>
+
+    <meta property="og:title" content="个人经历 - 小熙">
+    <meta property="og:description" content="小熙的个人经历 — 比赛获奖、项目动态与成长轨迹。">
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://lazaxa.cn/experience.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="个人经历 - 小熙">
+    <meta name="twitter:description" content="小熙的个人经历 — 比赛获奖、项目动态与成长轨迹。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,个人经历,比赛,获奖">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "name": "个人经历 - 小熙",
+  "description": "小熙的个人经历 — 比赛获奖、项目动态与成长轨迹。",
+  "url": "https://lazaxa.cn/experience.html",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  }
+}
+    </script>
+    </head>
 <body>
-    <div class="container">
-        <header class="small-header">
-            <h1>🏆 个人经历</h1>
-            <p>成长轨迹与荣誉时刻</p>
-        </header>
-        
-        <nav>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -277,15 +301,22 @@
                         <a href="vnc-guide.html">🔧 VNC 教程</a>
                     </div>
                 </li>
-                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="experience.html" active>🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
                 <li><a href="ideas.html">💡 想法库</a></li>
                 <li><a href="guestbook.html">💬 留言</a></li>
                 <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
                 <li><a href="about.html">📝 关于</a></li>
             </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
         </nav>
-        
-        <div class="content">
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>🏆 个人经历</h1>
+            <p>成长轨迹与荣誉时刻</p>
+        </header><div class="content">
             <div class="tabs">
                 <button class="tab active" onclick="showSection('awards')">🏅 比赛经历</button>
                 <button class="tab" onclick="showSection('updates')">📢 动态更新</button>
@@ -419,15 +450,17 @@
                 <a href="index.html">🏠 首页</a>
                 <a href="about.html">📝 关于</a>
                 <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
                 <a href="experience.html">🏆 经历</a>
                 <a href="ideas.html">💡 想法</a>
                 <a href="guestbook.html">💬 留言</a>
                 <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
                 <a href="secret-download.html">🤫 暗号下载</a>
                 <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
             </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
-            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
 
@@ -490,29 +523,6 @@
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById("navMenu");
-            const btn = document.querySelector(".hamburger");
-            menu.classList.toggle("open");
-            btn.classList.toggle("active");
-        }
-        window.addEventListener("scroll", function() {
-            const btn = document.getElementById("backToTop");
-            if (window.scrollY > 300) {
-                btn.classList.add("visible");
-            } else {
-                btn.classList.remove("visible");
-            }
-        });
-        (function() {
-            const key = "myweb_visitor_count";
-            let count = localStorage.getItem(key);
-            if (!count) {
-                count = Math.floor(Math.random() * 100) + 50;
-                localStorage.setItem(key, count);
-            }
-            document.getElementById("visitCount").textContent = count;
-        })();
-    </script>
+<script src="common.js"></script>
 </body>
 </html>

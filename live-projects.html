@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="实时项目进度追踪 — 小熙正在进行的项目及其每日更新。">
+    <title>实时项目 - 小熙</title>
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== 页面头部 ===== */
+        .live-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .live-header h1 { margin: 0; color: white; font-size: 2em; }
+        .live-header p { opacity: 0.8; font-size: 14px; color: rgba(255,255,255,0.8); }
+
+        /* ===== 统计卡片 ===== */
+        .live-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 14px;
+            margin-bottom: 30px;
+        }
+        .live-stat-card {
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 14px;
+            padding: 18px 16px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(102,126,234,0.1);
+        }
+        .live-stat-card .stat-icon { font-size: 24px; margin-bottom: 6px; }
+        .live-stat-card .stat-number { font-size: 26px; font-weight: 700; color: var(--accent); }
+        .live-stat-card .stat-label { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+        /* ===== 项目卡片 ===== */
+        .live-project {
+            background: var(--nav-bg);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(102,126,234,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .live-project:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+
+        .live-project-header {
+            padding: 24px 24px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+        }
+        .live-project-header::after {
+            content: '▾';
+            position: absolute;
+            right: 24px;
+            top: 24px;
+            font-size: 18px;
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+        }
+        .live-project.expanded .live-project-header::after {
+            transform: rotate(180deg);
+        }
+
+        .live-project-info {
+            flex: 1;
+            min-width: 200px;
+        }
+        .live-project-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin: 0 0 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .live-project-name .project-icon {
+            font-size: 28px;
+        }
+        .live-project-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin: 6px 0 10px;
+        }
+
+        .live-project-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .status-badge.green { background: rgba(52,211,153,0.15); color: #10b981; }
+        .status-badge.orange { background: rgba(251,191,36,0.15); color: #f59e0b; }
+        .status-badge.blue { background: rgba(96,165,250,0.15); color: #3b82f6; }
+        .status-badge.gray { background: rgba(156,163,175,0.15); color: #6b7280; }
+
+        .project-tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            background: var(--badge-bg);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .live-project-time {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
+        /* ===== 更新日志时间线 ===== */
+        .live-project-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 24px;
+        }
+        .live-project.expanded .live-project-body {
+            max-height: 2000px;
+            padding: 0 24px 24px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 28px;
+            margin-top: 8px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent), rgba(102,126,234,0.1));
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 10px 0 10px 16px;
+            border-bottom: 1px solid rgba(102,126,234,0.06);
+        }
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 16px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        .timeline-item.type-start::before { background: #10b981; box-shadow: 0 0 0 2px #10b981; }
+        .timeline-item.type-update::before { background: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+        .timeline-item.type-milestone::before { background: #f59e0b; box-shadow: 0 0 0 2px #f59e0b; }
+        .timeline-item.type-done::before { background: #8b5cf6; box-shadow: 0 0 0 2px #8b5cf6; }
+
+        .timeline-date {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .timeline-content {
+            font-size: 14px;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+        .timeline-tag {
+            display: inline-block;
+            font-size: 10px;
+            padding: 1px 8px;
+            border-radius: 999px;
+            margin-right: 6px;
+            font-weight: 600;
+        }
+        .timeline-tag.start { background: rgba(16,185,129,0.15); color: #10b981; }
+        .timeline-tag.update { background: rgba(102,126,234,0.15); color: var(--accent); }
+        .timeline-tag.milestone { background: rgba(245,158,11,0.15); color: #f59e0b; }
+        .timeline-tag.done { background: rgba(139,92,246,0.15); color: #8b5cf6; }
+
+        /* ===== 空状态 ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+        .empty-state .empty-icon { font-size: 48px; margin-bottom: 16px; }
+        .empty-state h3 { color: var(--text-primary); margin-bottom: 8px; }
+
+        /* ===== 响应式 ===== */
+        @media (max-width: 768px) {
+            .live-project-header {
+                padding: 18px 18px 12px;
+            }
+            .live-project.expanded .live-project-body {
+                padding: 0 18px 18px;
+            }
+            .live-project-name {
+                font-size: 17px;
+            }
+        }
+    </style>
+
+    <meta property="og:title" content="实时项目 - 小熙">
+    <meta property="og:description" content="实时项目进度追踪 — 小熙正在进行的项目及其每日更新。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazaxa.cn/live-projects.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="实时项目 - 小熙">
+    <meta name="twitter:description" content="实时项目进度追踪 — 小熙正在进行的项目及其每日更新。">
+    <meta name="keywords" content="小熙,实时项目,进度追踪">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "实时项目 - 小熙",
+  "description": "实时项目进度追踪 — 小熙正在进行的项目及其每日更新。",
+  "url": "https://lazaxa.cn/live-projects.html",
+  "author": { "@type": "Person", "name": "小熙" }
+}
+    </script>
+</head>
+<body>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
+        <button class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul id="navMenu">
+            <li><a href="index.html">🏠 首页</a></li>
+            <li class="nav-item">
+                <a href="projects.html">🚀 项目</a>
+                <div class="dropdown">
+                    <a href="series-pid-control.html">🤖 PID 控制</a>
+                    <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                    <a href="series-bi.html">🧠 仿生智慧</a>
+                    <a href="vnc-guide.html">🔧 VNC 教程</a>
+                </div>
+            </li>
+            <li><a href="live-projects.html" class="active">📡 实时项目</a></li>
+            <li><a href="experience.html">🏆 个人经历</a></li>
+            <li><a href="navigation.html">📂 HTML作品</a></li>
+            <li><a href="ideas.html">💡 想法库</a></li>
+            <li><a href="guestbook.html">💬 留言</a></li>
+            <li><a href="search.html">🔍 搜索</a></li>
+            <li><a href="links.html">🔗 友链</a></li>
+            <li><a href="ai-chat.html">🤖 AI 对话</a></li>
+            <li><a href="about.html">📝 关于</a></li>
+        </ul>
+        <div class="nav-footer">✨ 小熙的个人空间</div>
+    </nav>
+
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>📡 实时项目</h1>
+            <p>我正在做的事情，实时更新</p>
+        </header>
+
+        <div class="content">
+            <!-- 统计卡片（纯静态） -->
+            <div class="live-stats">
+                <div class="live-stat-card">
+                    <div class="stat-icon">📦</div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">进行中项目</div>
+                </div>
+                <div class="live-stat-card">
+                    <div class="stat-icon">📝</div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">总更新次数</div>
+                </div>
+                <div class="live-stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">已完成项目</div>
+                </div>
+                <div class="live-stat-card">
+                    <div class="stat-icon">📅</div>
+                    <div class="stat-number">1</div>
+                    <div class="stat-label">活跃天数</div>
+                </div>
+            </div>
+
+            <!-- ===== 项目列表（纯静态） ===== -->
+            <!-- 项目：智能中控 -->
+            <div class="live-project expanded" id="project-smart-hub">
+                <div class="live-project-header" onclick="this.parentElement.classList.toggle('expanded')">
+                    <div class="live-project-info">
+                        <div class="live-project-name">
+                            <span class="project-icon">🏠</span>
+                            智能中控
+                        </div>
+                        <div class="live-project-desc">家庭智能设备统一控制中心，聚合灯光、空调、窗帘等设备，支持语音指令和自动化场景。</div>
+                        <div class="live-project-meta">
+                            <span class="status-badge green">进行中</span>
+                            <span class="project-tag">树莓派</span>
+                            <span class="project-tag">物联网</span>
+                            <span class="project-tag">MQTT</span>
+                        </div>
+                    </div>
+                    <div class="live-project-time">创建于 2026-07-09</div>
+                </div>
+                <div class="live-project-body">
+                    <div class="timeline">
+                        <div class="timeline-item type-start">
+                            <div class="timeline-date">2026-07-09</div>
+                            <div class="timeline-content">
+                                <span class="timeline-tag start">启动</span>
+                                🚀 项目启动！规划用树莓派 + MQTT 协议统一管理家中智能设备，先搭基础架构。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== 以后新增项目直接在这里加 ===== -->
+            <!-- 复制上面 .live-project 整块，改内容即可 -->
+
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时项目</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
+        </footer>
+    </div>
+
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 纯静态版 - 只有折叠展开功能
+    </script>
+    <script src="common.js"></script>
+</body>
+</html>

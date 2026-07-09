@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI 对话 — 与小熙的 AI 智能体聊天，了解我的经历、项目与想法。">
+    <meta name="author" content="小熙">
+    <title>AI 对话 — 小熙的个人主页</title>
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== AI 对话页面专属样式 ===== */
+        .ai-chat-page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- 顶部简洁标题 --- */
+        .ai-chat-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+        .ai-chat-header h1 {
+            font-size: 1.6em;
+            color: var(--text-color, #1e293b);
+            margin-bottom: 6px;
+        }
+        .ai-chat-header p {
+            color: var(--text-muted, #64748b);
+            font-size: 0.92em;
+            max-width: 520px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* --- 三栏布局 --- */
+        .ai-chat-layout {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        /* --- 侧边卡片通用样式 --- */
+        .ai-sidecard {
+            flex: 0 0 220px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(31, 38, 135, 0.06);
+            border: 1px solid rgba(108,99,255,0.06);
+            padding: 20px 18px;
+        }
+        .ai-sidecard h3 {
+            font-size: 0.95em;
+            color: var(--text-color, #1e293b);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(108,99,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .ai-sidecard h3 span {
+            font-size: 1.1em;
+        }
+
+        /* --- 左侧卡片：关于我 --- */
+        .ai-about-card .avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c63ff, #5a54d9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            margin: 0 auto 12px;
+            color: white;
+        }
+        .ai-about-card .name {
+            text-align: center;
+            font-weight: 600;
+            font-size: 1em;
+            color: var(--text-color, #1e293b);
+            margin-bottom: 4px;
+        }
+        .ai-about-card .bio {
+            text-align: center;
+            font-size: 0.8em;
+            color: var(--text-muted, #64748b);
+            margin-bottom: 14px;
+            line-height: 1.5;
+        }
+        .ai-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: center;
+        }
+        .ai-tags span {
+            background: rgba(108,99,255,0.08);
+            color: #6c63ff;
+            font-size: 0.72em;
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(108,99,255,0.12);
+        }
+        .ai-social-links {
+            margin-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .ai-social-links a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82em;
+            color: var(--text-muted, #64748b);
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        .ai-social-links a:hover {
+            background: rgba(108,99,255,0.06);
+            color: #6c63ff;
+        }
+
+        /* --- 右侧卡片 --- */
+        .ai-right-card + .ai-right-card {
+            margin-top: 14px;
+        }
+        .ai-right-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .ai-right-card li {
+            font-size: 0.82em;
+            padding: 7px 0;
+            border-bottom: 1px solid rgba(108,99,255,0.05);
+            color: var(--text-color, #1e293b);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-right-card li:last-child {
+            border-bottom: none;
+        }
+        .ai-right-card li .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .ai-right-card li a {
+            color: var(--text-color, #1e293b);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .ai-right-card li a:hover {
+            color: #6c63ff;
+        }
+        .ai-right-card .stat-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.82em;
+            padding: 6px 0;
+            color: var(--text-color, #1e293b);
+        }
+        .ai-right-card .stat-row .num {
+            font-weight: 600;
+            color: #6c63ff;
+        }
+
+        /* --- 中间 Coze 聊天 --- */
+        .ai-chat-main {
+            flex: 1;
+            min-width: 0;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.08);
+            border: 1px solid rgba(108,99,255,0.06);
+            overflow: hidden;
+            height: 600px;
+            position: relative;
+        }
+        #coze-chat-container {
+            width: 100%;
+            height: 100%;
+        }
+        #coze-chat-container iframe {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* --- 快捷问题 --- */
+        .ai-quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .ai-quick-questions button {
+            background: rgba(108, 99, 255, 0.08);
+            color: var(--text-color, #1e293b);
+            border: 1px solid rgba(108, 99, 255, 0.15);
+            border-radius: 20px;
+            padding: 6px 16px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .ai-quick-questions button:hover {
+            background: rgba(108, 99, 255, 0.15);
+            border-color: rgba(108, 99, 255, 0.35);
+            transform: translateY(-1px);
+        }
+
+        /* --- 底部提示 --- */
+        .ai-chat-footer-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.82em;
+            color: var(--text-muted, #94a3b8);
+        }
+
+        /* 暗色模式适配 */
+        @media (prefers-color-scheme: dark) {
+            .ai-sidecard {
+                background: #1e293b;
+                border-color: rgba(51, 65, 85, 0.6);
+            }
+            .ai-chat-main {
+                background: #1e293b;
+                border-color: rgba(51, 65, 85, 0.6);
+            }
+            .ai-quick-questions button {
+                background: rgba(108, 99, 255, 0.12);
+                border-color: rgba(108, 99, 255, 0.2);
+                color: #e2e8f0;
+            }
+            .ai-quick-questions button:hover {
+                background: rgba(108, 99, 255, 0.2);
+            }
+            .ai-right-card li { color: #e2e8f0; }
+            .ai-right-card li a { color: #e2e8f0; }
+            .ai-right-card li a:hover { color: #6c63ff; }
+            .ai-social-links a { color: #94a3b8; }
+            .ai-about-card .name { color: #e2e8f0; }
+            .ai-about-card .bio { color: #94a3b8; }
+            .ai-sidecard h3 { color: #e2e8f0; }
+            .ai-right-card .stat-row { color: #e2e8f0; }
+        }
+
+        /* 响应式：窄屏变上下布局 */
+        @media (max-width: 900px) {
+            .ai-chat-layout {
+                flex-direction: column;
+            }
+            .ai-sidecard {
+                flex: none;
+                width: 100%;
+            }
+            .ai-chat-main {
+                height: 520px;
+            }
+            /* 窄屏时左右卡片合并成一行两列 */
+            .ai-sidecards-row {
+                display: flex;
+                gap: 14px;
+            }
+            .ai-sidecards-row .ai-sidecard {
+                flex: 1;
+            }
+        }
+        @media (max-width: 600px) {
+            .ai-sidecards-row {
+                flex-direction: column;
+            }
+            .ai-chat-header h1 { font-size: 1.3em; }
+            .ai-quick-questions button {
+                font-size: 0.8em;
+                padding: 5px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 渐变星空背景 -->
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+
+    <!-- 导航栏 -->
+    <nav>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html" active>🤖 AI 对话</a></li>
+                <li><a href="about.html">📝 关于</a></li>
+            </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
+        </nav>
+
+    <div class="container page-fade">
+        <!-- 简洁标题 -->
+        <div class="ai-chat-header">
+            <h1>🤖 和小熙的 AI 聊聊</h1>
+            <p>这是基于我经历、项目与想法训练的 AI 智能体，想问什么直接说就好。</p>
+        </div>
+
+        <!-- 快捷问题 -->
+        <div class="ai-quick-questions">
+            <button onclick="sendQuickQuestion('你都会些什么？')">💡 你都会些什么？</button>
+            <button onclick="sendQuickQuestion('介绍一下你的项目')">🚀 介绍一下项目</button>
+            <button onclick="sendQuickQuestion('你学的是什么专业？')">📚 什么专业？</button>
+            <button onclick="sendQuickQuestion('你的技术栈是什么？')">🛠️ 技术栈</button>
+            <button onclick="sendQuickQuestion('最近在做什么？')">✨ 最近在做什么？</button>
+        </div>
+
+        <!-- ===== 三栏布局 ===== -->
+        <div class="ai-chat-layout">
+
+            <!-- 左侧卡片：关于我 -->
+            <div class="ai-sidecard ai-about-card">
+                <div class="avatar">👤</div>
+                <div class="name">小熙</div>
+                <div class="bio">热爱技术、折腾与分享<br>全栈开发者 · AI 爱好者</div>
+                <div class="ai-tags">
+                    <span>Vue</span>
+                    <span>Python</span>
+                    <span>Go</span>
+                    <span>Linux</span>
+                    <span>IoT</span>
+                    <span>AI</span>
+                    <span>树莓派</span>
+                </div>
+                <div class="ai-social-links">
+                    <a href="about.html">📝 关于我</a>
+                    <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+                    <a href="projects.html">🚀 我的项目</a>
+                    <a href="experience.html">🏆 个人经历</a>
+                </div>
+            </div>
+
+            <!-- 中间：Coze 聊天 -->
+            <div class="ai-chat-main">
+                <div id="coze-chat-container"></div>
+            </div>
+
+            <!-- 右侧卡片：项目速览 + 最新动态 -->
+            <div class="ai-sidecard">
+                <!-- 项目速览 -->
+                <h3><span>🚀</span> 项目速览</h3>
+                <ul>
+                    <li><span class="dot" style="background:#6c63ff"></span> <a href="series-pid-control.html">PID 控制系统</a></li>
+                    <li><span class="dot" style="background:#f59e0b"></span> <a href="series-smart-questionnaire.html">智能问卷系统</a></li>
+                    <li><span class="dot" style="background:#10b981"></span> <a href="series-bi.html">仿生智慧研究</a></li>
+                    <li><span class="dot" style="background:#ef4444"></span> <a href="vnc-guide.html">VNC 远程教程</a></li>
+                </ul>
+
+                <h3 style="margin-top:18px"><span>📊</span> 站点统计</h3>
+                <div class="stat-row">
+                    <span>📝 博客文章</span>
+                    <span class="num">12</span>
+                </div>
+                <div class="stat-row">
+                    <span>🚀 项目</span>
+                    <span class="num">4</span>
+                </div>
+                <div class="stat-row">
+                    <span>💡 想法</span>
+                    <span class="num">8</span>
+                </div>
+            </div>
+
+        </div>
+        <!-- ===== 三栏布局结束 ===== -->
+
+        <div class="ai-chat-footer-note">
+            💬 AI 回复基于我的知识库，可能不是实时信息
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
+        </footer>
+    </div>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <!-- Coze SDK - AI2: 了解我 -->
+    <script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.19/libs/cn/index.js"></script>
+    <script>
+        // AI2: 了解我 - Bot（嵌入模式）
+        new CozeWebSDK.WebChatClient({
+            el: document.getElementById('coze-chat-container'),
+            config: {
+                bot_id: '7660464547111026728',
+            },
+            componentProps: {
+                title: '🤖 小熙的 AI',
+            },
+            auth: {
+                type: 'token',
+                token: 'pat_K2CLRuPUiz2xeOq7ddva2rGwuq1IcA5NpkqGaVE4cQYFMw0lJPbVnGfiNxZArqRR',
+                onRefreshToken: function () {
+                    return 'pat_K2CLRuPUiz2xeOq7ddva2rGwuq1IcA5NpkqGaVE4cQYFMw0lJPbVnGfiNxZArqRR'
+                }
+            }
+        });
+
+        // 快捷问题：尝试在 Coze 聊天输入框中填入文字
+        function sendQuickQuestion(text) {
+            const iframe = document.querySelector('#coze-chat-container iframe');
+            if (iframe) {
+                try {
+                    iframe.contentWindow.postMessage({
+                        type: 'coze_set_input',
+                        text: text
+                    }, '*');
+                } catch(e) {}
+            }
+            const input = document.querySelector('#coze-chat-container input, #coze-chat-container textarea, [contenteditable]');
+            if (input) {
+                input.focus();
+                if (input.tagName === 'INPUT' || input.tagName === 'TEXTAREA') {
+                    input.value = text;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                } else if (input.isContentEditable) {
+                    input.textContent = text;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            }
+        }
+    </script>
+
+    <script src="common.js"></script>
+</body>
+</html>

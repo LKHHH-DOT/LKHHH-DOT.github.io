@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="友情链接 — 小熙的个人网站，与朋友们交换链接，共同成长。">
+    <title>友情链接 - 小熙</title>
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .links-intro {
+            text-align: center;
+            padding: 20px 0 30px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+        .links-intro p {
+            font-size: 1.05em;
+        }
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .link-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 24px;
+            border: 2px solid var(--border-light);
+            border-left: 4px solid var(--accent);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .link-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.15);
+            border-color: var(--accent);
+        }
+        .link-card .link-name {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .link-card .link-name .link-icon {
+            margin-right: 6px;
+        }
+        .link-card .link-desc {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .link-card .link-url {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            word-break: break-all;
+        }
+        .link-card .link-url:hover {
+            color: var(--accent);
+        }
+        .exchange-info {
+            background: linear-gradient(135deg, #667eea08 0%, #764ba208 100%);
+            border: 2px dashed #667eea;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .exchange-info h3 {
+            color: var(--accent);
+            font-size: 1.2em;
+            margin-bottom: 12px;
+        }
+        .exchange-info p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.95em;
+        }
+        .exchange-info code {
+            display: inline-block;
+            background: #667eea10;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            color: var(--accent);
+            margin: 8px 0;
+            border: 1px solid #667eea30;
+            word-break: break-all;
+        }
+        .exchange-info .email-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 24px;
+            background: var(--accent-gradient);
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+        .exchange-info .email-link:hover {
+            transform: translateY(-2px);
+        }
+        @media (max-width: 768px) {
+            .links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+
+    <meta property="og:title" content="友情链接 - 小熙">
+    <meta property="og:description" content="友情链接 — 小熙的个人网站，与朋友们交换链接，共同成长。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazaxa.cn/links.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="友情链接 - 小熙">
+    <meta name="twitter:description" content="友情链接 — 小熙的个人网站，与朋友们交换链接，共同成长。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,友情链接,友链">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "友情链接 - 小熙",
+  "description": "友情链接 — 小熙的个人网站，与朋友们交换链接，共同成长。",
+  "url": "https://lazaxa.cn/links.html",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  }
+}
+    </script>
+    </head>
+<body>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+
+    <nav>
+            <button class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul id="navMenu">
+                <li><a href="index.html">🏠 首页</a></li>
+                <li class="nav-item">
+                    <a href="projects.html">🚀 项目</a>
+                    <div class="dropdown">
+                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-smart-questionnaire.html">📋 智能问卷</a>
+                        <a href="series-bi.html">🧠 仿生智慧</a>
+                        <a href="vnc-guide.html">🔧 VNC 教程</a>
+                    </div>
+                </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
+                <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
+                <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html" active>🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
+                <li><a href="about.html">📝 关于</a></li>
+            </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
+        </nav>
+
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>🔗 友情链接</h1>
+            <p>与朋友们交换链接，一起成长</p>
+        </header>
+
+        <div class="content">
+            <div class="links-intro">
+                <p>🌐 这里是我和朋友们互相推荐的网站和博客</p>
+                <p>如果你也想交换友链，欢迎 <a href="mailto:1452520934@qq.com" style="color:#667eea;">📧 联系我</a></p>
+            </div>
+
+            <div class="links-grid" id="linksContainer">
+                <!-- 友情链接由 JS 动态加载 -->
+            </div>
+
+            <div class="exchange-info">
+                <h3>🤝 交换友链</h3>
+                <p>如果你想和我交换友情链接，请先添加我的链接到你的网站，然后发邮件告诉我：</p>
+                <code>
+                    🌐 名称：小熙的个人主页<br>
+                    📝 简介：智能制造工程专业学生，记录学习历程、项目实践与创新思考<br>
+                    🔗 链接：https://lazaxa.cn
+                </code>
+                <br>
+                <a href="mailto:1452520934@qq.com?subject=交换友链" class="email-link">📧 发邮件申请友链</a>
+            </div>
+
+            <a href="index.html" class="back-link">← 返回首页</a>
+        </div>
+
+        <footer>
+            <div class="footer-links">
+                <a href="index.html">🏠 首页</a>
+                <a href="about.html">📝 关于</a>
+                <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
+                <a href="experience.html">🏆 经历</a>
+                <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="links.html">🔗 友链</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
+                <a href="secret-download.html">🤫 暗号下载</a>
+                <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
+            </div>
+            <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
+        </footer>
+    </div>
+
+    <!-- 回到顶部 -->
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <script>
+        // 友情链接数据
+        const friendLinks = [
+            {
+                name: "小熙的个人主页",
+                icon: "🦞",
+                desc: "智能制造工程专业学生，记录学习历程、项目实践与创新思考",
+                url: "https://lazaxa.cn"
+            },
+            {
+                name: "Vue.js 官方文档",
+                icon: "🟢",
+                desc: "渐进式 JavaScript 框架，前端开发的首选工具",
+                url: "https://cn.vuejs.org"
+            },
+            {
+                name: "GitHub",
+                icon: "🐙",
+                desc: "全球最大的代码托管平台，开源项目的家园",
+                url: "https://github.com"
+            }
+        ];
+
+        // 渲染友情链接
+        const container = document.getElementById('linksContainer');
+        friendLinks.forEach(link => {
+            const card = document.createElement('a');
+            card.href = link.url;
+            card.target = '_blank';
+            card.className = 'link-card';
+            card.innerHTML = `
+                <div class="link-name"><span class="link-icon">${link.icon}</span>${link.name}</div>
+                <div class="link-desc">${link.desc}</div>
+                <div class="link-url">${link.url}</div>
+            `;
+            container.appendChild(card);
+        });
+    </script>
+<script src="common.js"></script>
+</body>
+</html>

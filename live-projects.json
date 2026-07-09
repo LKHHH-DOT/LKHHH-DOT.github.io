@@ -1,0 +1,21 @@
+{
+  "projects": [
+    {
+      "id": "robot-dance",
+      "name": "机器人跳舞",
+      "icon": "🤖",
+      "status": "进行中",
+      "statusColor": "green",
+      "description": "基于 Arduino 控制的跳舞机器人项目，通过舵机驱动实现多关节舞蹈动作。",
+      "tags": ["Arduino", "舵机", "机器人"],
+      "createdAt": "2026-07-09",
+      "updates": [
+        {
+          "date": "2026-07-09",
+          "content": "🚀 项目启动！确定了机器人跳舞的整体方案，采购舵机和Arduino开发板。",
+          "type": "start"
+        }
+      ]
+    }
+  ]
+}

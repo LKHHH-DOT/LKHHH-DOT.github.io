@@ -5,34 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="智能PID控制器系列 — 融合模糊逻辑与神经网络的双系统PID控制策略研究。">
     <title>智能PID控制器系列 - 小熙</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
     <link rel="stylesheet" href="style.css">
     <style>
         .page-header { margin-bottom: 30px; }
-        .page-title { font-size: 2em; color: #667eea; margin-bottom: 8px; }
-        .page-desc { color: #666; font-size: 1rem; }
+        .page-title { font-size: 2em; color: var(--accent); margin-bottom: 8px; }
+        .page-desc { color: var(--text-secondary); font-size: 1rem; }
         .project-list { display: grid; gap: 25px; grid-template-columns: 1fr; }
-        .project-card { background: #f8f9fa; border-radius: 10px; padding: 25px; border-left: 4px solid #667eea; transition: transform 0.3s, box-shadow 0.3s; }
+        .project-card { background: var(--bg-secondary); border-radius: 10px; padding: 25px; border-left: 4px solid var(--accent); transition: transform 0.3s, box-shadow 0.3s; }
         .project-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
         .project-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .project-number { font-size: 1.1rem; font-weight: 800; color: #667eea; opacity: 0.6; }
+        .project-number { font-size: 1.1rem; font-weight: 800; color: var(--accent); opacity: 0.6; }
         .project-status { font-size: 0.8rem; padding: 4px 10px; border-radius: 999px; font-weight: 500; }
         .status-completed { background: #d4edda; color: #155724; }
-        .project-card h3 { color: #667eea; margin-bottom: 12px; font-size: 1.3em; }
-        .project-card p { color: #666; line-height: 1.7; }
+        .project-card h3 { color: var(--accent); margin-bottom: 12px; font-size: 1.3em; }
+        .project-card p { color: var(--text-secondary); line-height: 1.7; }
         .tags { margin: 12px 0; }
         .tag { display: inline-block; padding: 5px 12px; background: #667eea; color: white; border-radius: 20px; font-size: 0.85em; margin-right: 8px; margin-bottom: 8px; }
     </style>
-</head>
+
+    <meta property="og:title" content="智能PID控制器系列 - 小熙">
+    <meta property="og:description" content="智能PID控制器系列 — 融合模糊逻辑与神经网络的双系统PID控制策略研究。">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://lazaxa.cn/series-pid-control.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="智能PID控制器系列 - 小熙">
+    <meta name="twitter:description" content="智能PID控制器系列 — 融合模糊逻辑与神经网络的双系统PID控制策略研究。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,PID,模糊逻辑,神经网络,控制">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "name": "智能PID控制器系列 - 小熙",
+  "description": "智能PID控制器系列 — 融合模糊逻辑与神经网络的双系统PID控制策略研究。",
+  "url": "https://lazaxa.cn/series-pid-control.html",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  },
+  "inLanguage": "zh-CN"
+}
+    </script>
+    </head>
 <body>
-    <div class="container">
-        <header class="small-header">
-            <h1>🚀 项目展示</h1>
-            <p>我的实践与创新项目</p>
-        </header>
-        
-        <nav>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -43,21 +68,29 @@
                 <li class="nav-item">
                     <a href="projects.html">🚀 项目</a>
                     <div class="dropdown">
-                        <a href="series-pid-control.html">🤖 PID 控制</a>
+                        <a href="series-pid-control.html" active>🤖 PID 控制</a>
                         <a href="series-smart-questionnaire.html">📋 智能问卷</a>
                         <a href="series-bi.html">🧠 仿生智慧</a>
                         <a href="vnc-guide.html">🔧 VNC 教程</a>
                     </div>
                 </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
                 <li><a href="ideas.html">💡 想法库</a></li>
                 <li><a href="guestbook.html">💬 留言</a></li>
                 <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
                 <li><a href="about.html">📝 关于</a></li>
             </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
         </nav>
-        
-        <div class="content">
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>🚀 项目展示</h1>
+            <p>我的实践与创新项目</p>
+        </header><div class="content">
             <div class="page-header">
                 <a href="projects.html" class="back-link">← 返回项目列表</a>
                 <h1 class="page-title">🤖 智能PID控制器系列</h1>
@@ -91,44 +124,23 @@
                 <a href="index.html">🏠 首页</a>
                 <a href="about.html">📝 关于</a>
                 <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
                 <a href="experience.html">🏆 经历</a>
                 <a href="ideas.html">💡 想法</a>
                 <a href="guestbook.html">💬 留言</a>
                 <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
                 <a href="secret-download.html">🤫 暗号下载</a>
                 <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
             </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
-            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
     <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById("navMenu");
-            const btn = document.querySelector(".hamburger");
-            menu.classList.toggle("open");
-            btn.classList.toggle("active");
-        }
-        window.addEventListener("scroll", function() {
-            const btn = document.getElementById("backToTop");
-            if (window.scrollY > 300) {
-                btn.classList.add("visible");
-            } else {
-                btn.classList.remove("visible");
-            }
-        });
-        (function() {
-            const key = "myweb_visitor_count";
-            let count = localStorage.getItem(key);
-            if (!count) {
-                count = Math.floor(Math.random() * 100) + 50;
-                localStorage.setItem(key, count);
-            }
-            document.getElementById("visitCount").textContent = count;
-        })();
-    </script>
+<script src="common.js"></script>
 </body>
 </html>

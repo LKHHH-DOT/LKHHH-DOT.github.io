@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="全站搜索 — 搜索小熙个人主页的所有内容。">
     <title>搜索 - 小熙</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
     <link rel="stylesheet" href="style.css">
     <style>
         .search-box {
@@ -17,18 +17,18 @@
         .search-box input {
             flex: 1;
             padding: 14px 20px;
-            border: 2px solid #e0e0e0;
+            border: 2px solid var(--border-light);
             border-radius: 10px;
             font-size: 1.1em;
             outline: none;
             transition: border-color 0.3s;
         }
         .search-box input:focus {
-            border-color: #667eea;
+            border-color: var(--accent);
         }
         .search-box button {
             padding: 14px 28px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             color: white;
             border: none;
             border-radius: 10px;
@@ -49,10 +49,10 @@
         }
         .search-hint {
             padding: 6px 14px;
-            background: #f0f0f0;
+            background: var(--code-bg);
             border-radius: 20px;
             font-size: 0.85em;
-            color: #666;
+            color: var(--text-secondary);
             cursor: pointer;
             transition: all 0.2s;
         }
@@ -63,16 +63,16 @@
 
         .search-stats {
             font-size: 0.9em;
-            color: #888;
+            color: var(--text-muted);
             margin-bottom: 20px;
         }
 
         .search-result {
             padding: 18px 22px;
             margin-bottom: 12px;
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 10px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--accent);
             transition: transform 0.2s;
         }
         .search-result:hover {
@@ -81,11 +81,11 @@
         .search-result .sr-title {
             font-size: 1.1em;
             font-weight: 600;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 6px;
         }
         .search-result .sr-title a {
-            color: #667eea;
+            color: var(--accent);
             text-decoration: none;
         }
         .search-result .sr-title a:hover {
@@ -93,12 +93,12 @@
         }
         .search-result .sr-meta {
             font-size: 0.82em;
-            color: #aaa;
+            color: var(--text-light);
             margin-bottom: 8px;
         }
         .search-result .sr-snippet {
             font-size: 0.9em;
-            color: #666;
+            color: var(--text-secondary);
             line-height: 1.6;
         }
         .search-result .sr-snippet mark {
@@ -110,11 +110,11 @@
         .search-empty {
             text-align: center;
             padding: 60px 20px;
-            color: #888;
+            color: var(--text-muted);
         }
         .search-empty h3 {
             font-size: 1.5em;
-            color: #667eea;
+            color: var(--accent);
             margin-bottom: 10px;
         }
 
@@ -127,15 +127,39 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header class="small-header">
-            <h1>🔍 全站搜索</h1>
-            <p>搜索所有页面内容</p>
-        </header>
 
-        <nav>
+    <meta property="og:title" content="搜索 - 小熙">
+    <meta property="og:description" content="全站搜索 — 搜索小熙个人主页的所有内容。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazaxa.cn/search.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="搜索 - 小熙">
+    <meta name="twitter:description" content="全站搜索 — 搜索小熙个人主页的所有内容。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,搜索,全站">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "搜索 - 小熙",
+  "description": "全站搜索 — 搜索小熙个人主页的所有内容。",
+  "url": "https://lazaxa.cn/search.html",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  }
+}
+    </script>
+    </head>
+<body>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -152,13 +176,23 @@
                         <a href="vnc-guide.html">🔧 VNC 教程</a>
                     </div>
                 </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
                 <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html">💬 留言</a></li>
+                <li><a href="search.html" active>🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
                 <li><a href="about.html">📝 关于</a></li>
             </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
         </nav>
-
-        <div class="content">
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>🔍 全站搜索</h1>
+            <p>搜索所有页面内容</p>
+        </header><div class="content">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="输入关键词搜索..." autofocus>
                 <button onclick="doSearch()">🔍 搜索</button>
@@ -188,13 +222,17 @@
                 <a href="index.html">🏠 首页</a>
                 <a href="about.html">📝 关于</a>
                 <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
                 <a href="experience.html">🏆 经历</a>
                 <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
                 <a href="secret-download.html">🤫 暗号下载</a>
                 <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
             </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
-            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
 
@@ -221,6 +259,20 @@
             { title: "仿生智慧 BI 系列", url: "series-bi.html", content: "仿生智慧 BI 超越Transformer 新范式 生物神经 元认知 特化器官 睡眠周期 不知道就问 知道就做 累了就睡", meta: "系列 · 仿生智慧" },
             // VNC 指南
             { title: "VNC 远程桌面配置指南", url: "vnc-guide.html", content: "VNC 远程桌面 Ubuntu x11vnc Tailscale 手机控制 端口冲突 保姆级教程 远程控制", meta: "指南 · VNC 配置" },
+            // 留言板
+            { title: "留言板", url: "guestbook.html", content: "留言板 交流 讨论 GitHub Issues 留言 评论 反馈", meta: "留言 · 交流" },
+            // 友情链接
+            { title: "友情链接", url: "links.html", content: "友情链接 友链 交换链接 个人网站 博客", meta: "友链 · 链接" },
+            // AI 对话
+            { title: "AI 对话", url: "ai-chat.html", content: "AI 对话 智能体 Coze 聊天 了解我 项目 经历 想法", meta: "AI · 智能对话" },
+            // HTML 作品集
+            { title: "HTML作品集", url: "navigation.html", content: "HTML作品集 非遗文化 飞蚁项目 HTML笔记 2026生活记录 项目导航", meta: "作品集 · 项目导航" },
+            // 暗号下载
+            { title: "暗号下载", url: "secret-download.html", content: "暗号下载 秘密下载 私有文件 密码保护 文件分享", meta: "暗号 · 私有下载" },
+            // 关于
+            { title: "关于我", url: "about.html", content: "小熙 个人简介 技能 智能制造 编程 硬件 学习 成长", meta: "关于 · 个人简介" },
+            // 404
+            { title: "404 页面未找到", url: "404.html", content: "404 页面未找到 错误页面 返回首页", meta: "404 · 错误页面" },
             // 想法库
             { title: "CTM 连续思维机 边缘落地挑战", url: "ideas.html", content: "CTM 连续思维机 控制理论 硬件极限 边缘落地 内存墙 实时性 反馈回路 隐空间 分层控制", meta: "想法 · AI 架构" },
             { title: "仿生智慧 BI 新范式", url: "ideas.html", content: "仿生智慧 BI 超越Transformer 元认知 创造力 自我意识 灵魂躯干 特化器官协作 全并行处理", meta: "想法 · AI 架构" },
@@ -304,29 +356,6 @@
     </script>
 
     <script>
-        function toggleMenu() {
-            const menu = document.getElementById("navMenu");
-            const btn = document.querySelector(".hamburger");
-            menu.classList.toggle("open");
-            btn.classList.toggle("active");
-        }
-        window.addEventListener("scroll", function() {
-            const btn = document.getElementById("backToTop");
-            if (window.scrollY > 300) {
-                btn.classList.add("visible");
-            } else {
-                btn.classList.remove("visible");
-            }
-        });
-        (function() {
-            const key = "myweb_visitor_count";
-            let count = localStorage.getItem(key);
-            if (!count) {
-                count = Math.floor(Math.random() * 100) + 50;
-                localStorage.setItem(key, count);
-            }
-            document.getElementById("visitCount").textContent = count;
-        })();
-    </script>
+<script src="common.js"></script>
 </body>
 </html>

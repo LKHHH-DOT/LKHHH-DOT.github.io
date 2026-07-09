@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="留言与讨论 — 在小熙的个人主页上留言、交流想法。">
     <title>留言板 - 小熙</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="alternate icon" href="/favicon.ico">
+    <link rel="icon" href="BLOCKA.ICO" type="image/x-icon">
+    
     <link rel="stylesheet" href="style.css">
     <style>
         .comment-intro {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--accent-gradient);
             color: white;
             padding: 30px;
             border-radius: 10px;
@@ -26,14 +26,14 @@
         }
 
         .comment-rules {
-            background: #f8f9fa;
+            background: var(--bg-secondary);
             border-radius: 10px;
             padding: 20px 25px;
             margin-bottom: 30px;
-            border-left: 4px solid #667eea;
+            border-left: 4px solid var(--accent);
         }
         .comment-rules h4 {
-            color: #667eea;
+            color: var(--accent);
             margin-bottom: 10px;
         }
         .comment-rules ul {
@@ -42,99 +42,17 @@
         }
         .comment-rules ul li {
             padding: 4px 0;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.92em;
         }
         .comment-rules ul li::before {
             content: "✅ ";
         }
 
-        .github-login-hint {
-            text-align: center;
-            padding: 30px;
-            background: #f0f4ff;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
-        .github-login-hint p {
-            color: #555;
-            margin-bottom: 15px;
-        }
-        .github-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 30px;
-            background: #24292e;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1em;
-            font-weight: bold;
-            cursor: pointer;
-            text-decoration: none;
-            transition: transform 0.2s;
-        }
-        .github-btn:hover {
-            transform: translateY(-2px);
-            background: #1b1f23;
-        }
-
-        /* GitHub Issues 评论区容器 */
+        /* Giscus 容器 */
         .comments-container {
             min-height: 200px;
-        }
-
-        .comment-item {
-            padding: 18px 22px;
-            margin-bottom: 12px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 3px solid #667eea;
-        }
-        .comment-item .comment-author {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 8px;
-        }
-        .comment-item .comment-author img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-        }
-        .comment-item .comment-author .name {
-            font-weight: 600;
-            color: #333;
-        }
-        .comment-item .comment-author .date {
-            font-size: 0.82em;
-            color: #aaa;
-        }
-        .comment-item .comment-body {
-            color: #555;
-            line-height: 1.7;
-            font-size: 0.93em;
-        }
-        .comment-item .comment-body p {
-            margin-bottom: 6px;
-        }
-
-        .comments-loading {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-        }
-
-        .no-comments {
-            text-align: center;
-            padding: 40px;
-            color: #888;
-        }
-        .no-comments h4 {
-            font-size: 1.3em;
-            color: #667eea;
-            margin-bottom: 10px;
+            margin-bottom: 30px;
         }
 
         @media (max-width: 768px) {
@@ -143,15 +61,39 @@
             }
         }
     </style>
-</head>
-<body>
-    <div class="container">
-        <header class="small-header">
-            <h1>💬 留言板</h1>
-            <p>交流想法，分享见解</p>
-        </header>
 
-        <nav>
+    <meta property="og:title" content="留言板 - 小熙">
+    <meta property="og:description" content="留言与讨论 — 在小熙的个人主页上留言、交流想法。">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://lazaxa.cn/guestbook.html">
+    <meta property="og:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta property="og:site_name" content="小熙的个人主页">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="留言板 - 小熙">
+    <meta name="twitter:description" content="留言与讨论 — 在小熙的个人主页上留言、交流想法。">
+    <meta name="twitter:image" content="https://lazaxa.cn/BLOCKA.ICO">
+    <meta name="keywords" content="小熙,留言板,讨论">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "留言板 - 小熙",
+  "description": "留言与讨论 — 在小熙的个人主页上留言、交流想法。",
+  "url": "https://lazaxa.cn/guestbook.html",
+  "author": {
+    "@type": "Person",
+    "name": "小熙"
+  }
+}
+    </script>
+    </head>
+<body>
+    <div class="bg-stars"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-glow"></div>
+    <div class="bg-dots"></div>
+    <nav>
             <button class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -168,18 +110,28 @@
                         <a href="vnc-guide.html">🔧 VNC 教程</a>
                     </div>
                 </li>
+                <li><a href="live-projects.html">📡 实时项目</a></li>
                 <li><a href="experience.html">🏆 个人经历</a></li>
+                <li><a href="navigation.html">📂 HTML作品</a></li>
                 <li><a href="ideas.html">💡 想法库</a></li>
+                <li><a href="guestbook.html" active>💬 留言</a></li>
+                <li><a href="search.html">🔍 搜索</a></li>
+                <li><a href="links.html">🔗 友链</a></li>
+                <li><a href="ai-chat.html">🤖 AI 对话</a></li>
                 <li><a href="about.html">📝 关于</a></li>
             </ul>
+            <div class="nav-footer">✨ 小熙的个人空间</div>
         </nav>
-
-        <div class="content">
+    <div class="container page-fade">
+        <header class="small-header">
+            <h1>💬 留言板</h1>
+            <p>交流想法，分享见解</p>
+        </header><div class="content">
             <div class="comment-intro">
                 <h3>💬 欢迎留言</h3>
                 <p>这里是一个开放的交流空间。你可以对网站内容提出建议、分享你的想法、或者单纯打个招呼。</p>
                 <br>
-                <p>所有留言通过 <strong>GitHub Issues</strong> 管理，需要 GitHub 账号登录后发表评论。</p>
+                <p>所有留言通过 <strong>Giscus</strong> 评论系统管理，需要 GitHub 账号登录后发表评论。</p>
             </div>
 
             <div class="comment-rules">
@@ -192,16 +144,9 @@
                 </ul>
             </div>
 
-            <!-- GitHub Issues 评论区 -->
-            <div id="commentsContainer" class="comments-container">
-                <div class="comments-loading">⏳ 加载留言中...</div>
-            </div>
-
-            <div class="github-login-hint">
-                <p>💡 需要 GitHub 账号才能留言</p>
-                <a href="https://github.com/login?return_to=https://github.com/LKHHH-DOT/LKHHH-DOT.github.io/issues" target="_blank" class="github-btn">
-                    🐙 登录 GitHub 留言
-                </a>
+            <!-- Giscus 评论区 -->
+            <div class="comments-container">
+                <div class="giscus"></div>
             </div>
 
             <a href="index.html" class="back-link">← 返回首页</a>
@@ -212,143 +157,41 @@
                 <a href="index.html">🏠 首页</a>
                 <a href="about.html">📝 关于</a>
                 <a href="projects.html">🚀 项目</a>
+                <a href="live-projects.html">📡 实时</a>
                 <a href="experience.html">🏆 经历</a>
                 <a href="ideas.html">💡 想法</a>
+                <a href="guestbook.html">💬 留言</a>
+                <a href="search.html">🔍 搜索</a>
+                <a href="ai-chat.html">🤖 AI 对话</a>
                 <a href="secret-download.html">🤫 暗号下载</a>
                 <a href="https://github.com/LKHHH-DOT" target="_blank">🐙 GitHub</a>
             </div>
             <p>&copy; 2026 小熙的个人主页 | Powered by GitHub Pages</p>
-            <div class="visitor-counter">👁️ 您是第 <span id="visitCount">--</span> 位访客</div>
+            <div class="visitor-counter">👁️ 您是第 <span id="busuanzi_value_site_pv" style="display:none"></span><span id="visitCount">--</span> 位访客</div>
         </footer>
     </div>
 
     <!-- 回到顶部 -->
     <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
-    <script>
-        // ===== 从 GitHub Issues 加载留言 =====
-        const GITHUB_REPO = 'LKHHH-DOT/LKHHH-DOT.github.io';
-        const GITHUB_LABEL = 'comment'; // 用 label 过滤留言
-
-        async function loadComments() {
-            const container = document.getElementById('commentsContainer');
-            try {
-                // 尝试获取所有 issues（不限制 label，展示全部公开讨论）
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/issues?state=open&per_page=30&sort=created&direction=desc`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}`);
-                }
-
-                const issues = await response.json();
-
-                if (!issues || issues.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-comments">
-                            <h4>💬 还没有留言</h4>
-                            <p>来当第一个留言的人吧！</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                // 过滤掉 Pull Requests
-                const comments = issues.filter(issue => !issue.pull_request);
-
-                if (comments.length === 0) {
-                    container.innerHTML = `
-                        <div class="no-comments">
-                            <h4>💬 还没有留言</h4>
-                            <p>来当第一个留言的人吧！</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                container.innerHTML = comments.map(issue => `
-                    <div class="comment-item">
-                        <div class="comment-author">
-                            <img src="${issue.user.avatar_url}" alt="${issue.user.login}">
-                            <span class="name">${issue.user.login}</span>
-                            <span class="date">${new Date(issue.created_at).toLocaleDateString('zh-CN', {year:'numeric',month:'long',day:'numeric'})}</span>
-                        </div>
-                        <div class="comment-body">
-                            <strong style="color:#667eea">${escapeHtml(issue.title)}</strong>
-                            <div style="margin-top:6px">${renderMarkdown(issue.body || '')}</div>
-                        </div>
-                        <div style="margin-top:10px;font-size:0.85em">
-                            <a href="${issue.html_url}" target="_blank" style="color:#667eea;text-decoration:none">💬 回复这条留言 →</a>
-                        </div>
-                    </div>
-                `).join('');
-
-            } catch (err) {
-                console.error('加载留言失败:', err);
-                container.innerHTML = `
-                    <div class="no-comments">
-                        <h4>⚠️ 留言加载失败</h4>
-                        <p>请刷新页面重试，或直接前往 GitHub Issues 留言</p>
-                        <br>
-                        <a href="https://github.com/${GITHUB_REPO}/issues/new" target="_blank" style="color:#667eea;font-weight:bold">→ 前往 GitHub 留言</a>
-                    </div>
-                `;
-            }
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function renderMarkdown(text) {
-            // 简单的 Markdown 渲染（只处理段落和链接）
-            let html = escapeHtml(text);
-            // 换行转段落
-            html = html.split('\n\n').map(p => {
-                p = p.trim();
-                if (!p) return '';
-                // 行内代码
-                p = p.replace(/`([^`]+)`/g, '<code style="background:#f0f0f0;padding:2px 6px;border-radius:3px;font-size:0.9em">$1</code>');
-                // 加粗
-                p = p.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-                // 链接
-                p = p.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" style="color:#667eea">$1</a>');
-                return `<p>${p}</p>`;
-            }).join('');
-            // 单行换行
-            html = html.replace(/\n/g, '<br>');
-            return html;
-        }
-
-        // 加载留言
-        loadComments();
+    <!-- Giscus 评论系统 -->
+    <script src="https://giscus.app/client.js"
+        data-repo="LKHHH-DOT/LKHHH-DOT.github.io"
+        data-repo-id="R_kgDOTKpAAA"
+        data-category="General"
+        data-category-id="DIC_kwDOTKpAAM4DA048"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
     </script>
 
-    <script>
-        function toggleMenu() {
-            const menu = document.getElementById("navMenu");
-            const btn = document.querySelector(".hamburger");
-            menu.classList.toggle("open");
-            btn.classList.toggle("active");
-        }
-        window.addEventListener("scroll", function() {
-            const btn = document.getElementById("backToTop");
-            if (window.scrollY > 300) {
-                btn.classList.add("visible");
-            } else {
-                btn.classList.remove("visible");
-            }
-        });
-        (function() {
-            const key = "myweb_visitor_count";
-            let count = localStorage.getItem(key);
-            if (!count) {
-                count = Math.floor(Math.random() * 100) + 50;
-                localStorage.setItem(key, count);
-            }
-            document.getElementById("visitCount").textContent = count;
-        })();
-    </script>
+    <script src="common.js"></script>
 </body>
 </html>
